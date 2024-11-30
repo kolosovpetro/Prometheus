@@ -13,7 +13,12 @@ variable "vnet_name" {
   description = "Name of the virtual network"
 }
 
-variable "subnet_name" {
+variable "targets_subnet_name" {
+  type        = string
+  description = "Name of the subnet"
+}
+
+variable "server_subnet_name" {
   type        = string
   description = "Name of the subnet"
 }
