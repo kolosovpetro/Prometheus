@@ -7,6 +7,7 @@
 
 - http://prom-server.razumovsky.me
 - http://linux-target.razumovsky.me
+- http://linux-target.razumovsky.me:9100/metrics
 - http://windows-target.razumovsky.me
 
 ## SSH connection
