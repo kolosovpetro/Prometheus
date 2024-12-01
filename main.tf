@@ -29,13 +29,11 @@ module "prometheus_server_vm" {
   storage_os_disk_create_option     = var.storage_os_disk_create_option
   storage_os_disk_managed_disk_type = var.storage_os_disk_managed_disk_type
   storage_os_disk_name              = "osdisk-${local.prometheus_server.name}-${var.prefix}"
-  subnet_name                       = module.network.prom_server_subnet_name
   vm_name                           = "vm-${local.prometheus_server.name}-${var.prefix}"
   vm_size                           = var.vm_size
-  vnet_name                         = module.network.vnet_name
   public_ip_name                    = "pip-${local.prometheus_server.name}-${var.prefix}"
   subnet_id                         = module.network.prom_server_subnet_id
-  nsg_name                          = "nsg-${local.prometheus_server.name}-${var.prefix}"
+  network_security_group_id         = azurerm_network_security_group.public.id
 }
 
 module "linux_target_vm" {
@@ -55,20 +53,18 @@ module "linux_target_vm" {
   storage_os_disk_create_option     = var.storage_os_disk_create_option
   storage_os_disk_managed_disk_type = var.storage_os_disk_managed_disk_type
   storage_os_disk_name              = "osdisk-${local.linux_target.name}-${var.prefix}"
-  subnet_name                       = module.network.targets_subnet_name
   vm_name                           = "vm-${local.linux_target.name}-${var.prefix}"
   vm_size                           = var.vm_size
-  vnet_name                         = module.network.vnet_name
   public_ip_name                    = "pip-${local.linux_target.name}-${var.prefix}"
   subnet_id                         = module.network.target_subnet_id
-  nsg_name                          = "nsg-${local.linux_target.name}-${var.prefix}"
+  network_security_group_id         = azurerm_network_security_group.public.id
 }
 
 module "windows_target_vm" {
   source                      = "./modules/windows-vm"
   ip_configuration_name       = "ipc-${local.windows_target.name}-${var.prefix}"
   network_interface_name      = "nic-${local.windows_target.name}-${var.prefix}"
-  network_security_group_id   = module.network.
+  network_security_group_id   = azurerm_network_security_group.public.id
   os_profile_admin_password   = var.os_profile_admin_password
   os_profile_admin_username   = var.os_profile_admin_username
   os_profile_computer_name    = "vm-win-target"
@@ -84,7 +80,7 @@ module "windows_target_vm" {
 
 module "storage" {
   source                      = "./modules/storage"
-  storage_account_name        = "storvmwin${var.prefix}"
+  storage_account_name        = "storpromdemo${var.prefix}"
   storage_account_replication = var.storage_account_replication
   storage_account_tier        = var.storage_account_tier
   storage_container_name      = "contvmwin${var.prefix}"
@@ -94,7 +90,7 @@ module "storage" {
 
 module "configure_windows_servers_winrm_extension" {
   source                                = "./modules/custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\09_ANSIBLE\\ansible-control-node\\terraform\\scripts\\Configure-Ansible-Host.ps1"
+  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\Configure-Ansible-Host.ps1"
   custom_script_extension_file_name     = "Configure-Ansible-Host.ps1"
   extension_name                        = "ConfigureAnsibleHost"
   storage_account_name                  = module.storage.storage_account_name
@@ -104,7 +100,7 @@ module "configure_windows_servers_winrm_extension" {
 
 module "control_node_install_ansible_extension" {
   source                                = "./modules/linux-custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\09_ANSIBLE\\ansible-control-node\\scripts\\install_ansible.sh"
+  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_ansible.sh"
   custom_script_extension_file_name     = "install_ansible.sh"
   extension_name                        = "InstallAnsible"
   storage_account_name                  = module.storage.storage_account_name
@@ -114,7 +110,7 @@ module "control_node_install_ansible_extension" {
 
 module "managed_nodes_install_nginx" {
   source                                = "./modules/linux-custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\09_ANSIBLE\\ansible-control-node\\scripts\\install_nginx.sh"
+  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_nginx.sh"
   custom_script_extension_file_name     = "install_nginx.sh"
   extension_name                        = "InstallNginx"
   storage_account_name                  = module.storage.storage_account_name

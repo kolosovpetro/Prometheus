@@ -1,6 +1,7 @@
 locals {
 
   resource_group_name = "rg-prom-${var.prefix}"
+  domain_name         = "razumovsky.me"
 
   linux_target = {
     name      = "linux-target"

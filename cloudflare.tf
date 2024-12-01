@@ -1,5 +1,5 @@
 data "cloudflare_zone" "razumovsky_me_zone" {
-  name = "razumovsky.me"
+  name = local.domain_name
 }
 
 resource "cloudflare_record" "prom_server_dns" {

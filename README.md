@@ -1,14 +1,15 @@
 # Prometheus
 
-## URLs
+## DNS
 
-- prometheus.server.razumovsky.me
-- prometheus.target.razumovsky.me
+- http://prom-server.razumovsky.me
+- http://linux-target.razumovsky.me
+- http://windows-target.razumovsky.me
 
 ## SSH connection
 
-- ssh razumovsky_r@prometheus.server.razumovsky.me
-- ssh razumovsky_r@prometheus.target.razumovsky.me
+- ssh razumovsky_r@prom-server.razumovsky.me
+- ssh razumovsky_r@linux-target.razumovsky.me
 
 ## Creating scrape service
 
