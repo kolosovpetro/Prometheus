@@ -1,5 +1,8 @@
 # Prometheus
 
+- https://github.com/prometheus/prometheus
+- https://github.com/prometheus/node_exporter
+
 ## DNS
 
 - http://prom-server.razumovsky.me
