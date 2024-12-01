@@ -1,4 +1,6 @@
 ﻿scrape_configs:
   - job_name: 'node_exporter'
     static_configs:
-      - targets: [ 'prometheus.target.razumovsky.me:9100' ]
+      - targets: 
+        - 'linux-target.razumovsky.me:9100'
+        - 'windows-target.razumovsky.me:9100'
