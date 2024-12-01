@@ -6,6 +6,7 @@
 ## DNS
 
 - http://prom-server.razumovsky.me
+- http://prom-server.razumovsky.me:9090
 - http://linux-target.razumovsky.me
 - http://linux-target.razumovsky.me:9100/metrics
 - http://windows-target.razumovsky.me
