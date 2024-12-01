@@ -59,3 +59,8 @@ resource "azurerm_virtual_machine" "public" {
     azurerm_network_interface_security_group_association.public
   ]
 }
+
+resource "azurerm_network_interface_security_group_association" "public" {
+  network_interface_id      = azurerm_network_interface.public.id
+  network_security_group_id = var.network_security_group_id
+}

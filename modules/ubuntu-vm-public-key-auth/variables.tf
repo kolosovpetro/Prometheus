@@ -8,16 +8,6 @@ variable "resource_group_location" {
   description = "Location of the resource group."
 }
 
-variable "vnet_name" {
-  type        = string
-  description = "Name of the virtual network"
-}
-
-variable "subnet_name" {
-  type        = string
-  description = "Name of the subnet"
-}
-
 variable "subnet_id" {
   type        = string
   description = "ID of the subnet"
@@ -103,7 +93,7 @@ variable "public_ip_name" {
   description = "Name of the public IP"
 }
 
-variable "nsg_name" {
+variable "network_security_group_id" {
   type        = string
-  description = "Name of the network security group"
+  description = "ID of the network security group"
 }
