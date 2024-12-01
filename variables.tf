@@ -63,12 +63,22 @@ variable "os_profile_admin_password" {
   description = "Specifies the password of the administrator account."
 }
 
-variable "storage_account_tier" {
+variable "cloudflare_api_token" {
   type        = string
-  description = "Messenger storage account tier"
+  description = "Cloudflare API token"
 }
 
 variable "storage_account_replication" {
   type        = string
-  description = "Messenger storage account replication strategy"
+  description = "Specifies the replication type for this storage account."
+}
+
+variable "storage_account_tier" {
+  type        = string
+  description = "Specifies the tier to use for this storage account."
+}
+
+variable "subscription_id" {
+  type        = string
+  description = "Azure subscription ID"
 }

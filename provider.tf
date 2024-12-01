@@ -1,8 +1,12 @@
 provider "azurerm" {
-  subscription_id = "f32f6566-8fa0-4198-9c91-a3b8ac69e89a"
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
     }
   }
+  subscription_id = var.subscription_id
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
