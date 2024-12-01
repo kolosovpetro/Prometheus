@@ -3,4 +3,4 @@
     static_configs:
       - targets: 
         - 'linux-target.razumovsky.me:9100'
-        - 'windows-target.razumovsky.me:9100'
+        - 'windows-target.razumovsky.me:9182'

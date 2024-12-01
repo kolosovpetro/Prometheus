@@ -73,3 +73,31 @@ resource "azurerm_network_security_rule" "allow_prom_server_dashboard_port" {
   resource_group_name         = azurerm_resource_group.public.name
   network_security_group_name = azurerm_network_security_group.public.name
 }
+
+resource "azurerm_network_security_rule" "allow_windows_scrape_port" {
+  name                        = "AllowPromWindowsScrapePort"
+  priority                    = 1050
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "9182"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}
+
+resource "azurerm_network_security_rule" "allow_rdp" {
+  name                        = "AllowRDP"
+  priority                    = 1060
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3389"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}

@@ -10,6 +10,7 @@
 - http://linux-target.razumovsky.me
 - http://linux-target.razumovsky.me:9100/metrics
 - http://windows-target.razumovsky.me
+- http://windows-target.razumovsky.me:9182/metrics
 
 ## SSH connection
 
@@ -27,3 +28,4 @@
 ## Notes
 
 - Linux default scrape port: 9100
+- Windows default scrape port: 9182

@@ -45,7 +45,7 @@ scrape_configs:
     static_configs:
       - targets: 
         - 'linux-target.razumovsky.me:9100'
-        - 'windows-target.razumovsky.me:9100'
+        - 'windows-target.razumovsky.me:9182'
 EOF
 sudo chown $PROMETHEUS_USER:$PROMETHEUS_USER $PROMETHEUS_DIR/prometheus.yml
 
