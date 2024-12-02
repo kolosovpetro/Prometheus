@@ -88,7 +88,7 @@ module "storage" {
   storage_resource_group_name = azurerm_resource_group.public.name
 }
 
-module "configure_windows_servers_winrm_extension" {
+module "configure_windows_target_win_rm" {
   source                                = "./modules/custom-script-extension"
   custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\Configure-Ansible-Host.ps1"
   custom_script_extension_file_name     = "Configure-Ansible-Host.ps1"
@@ -98,7 +98,7 @@ module "configure_windows_servers_winrm_extension" {
   virtual_machine_id                    = module.windows_target_vm.id
 }
 
-module "control_node_install_ansible_extension" {
+module "configure_prom_server_ansible" {
   source                                = "./modules/linux-custom-script-extension"
   custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_ansible.sh"
   custom_script_extension_file_name     = "install_ansible.sh"
@@ -108,7 +108,7 @@ module "control_node_install_ansible_extension" {
   virtual_machine_id                    = module.prometheus_server_vm.id
 }
 
-module "managed_nodes_install_nginx" {
+module "configure_linux_target" {
   source                                = "./modules/linux-custom-script-extension"
   custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_nginx.sh"
   custom_script_extension_file_name     = "install_nginx.sh"
