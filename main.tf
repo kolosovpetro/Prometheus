@@ -67,21 +67,21 @@ module "linux_target_vm" {
 }
 
 module "windows_target_vm" {
-  source                       = "./modules/windows-vm"
-  ip_configuration_name        = "ipc-${local.windows_target.name}-${var.prefix}"
-  network_interface_name       = "nic-${local.windows_target.name}-${var.prefix}"
-  network_security_group_id    = azurerm_network_security_group.public.id
-  os_profile_admin_password    = var.os_profile_admin_password
-  os_profile_admin_username    = var.os_profile_admin_username
-  os_profile_computer_name     = "vm-win-target"
-  public_ip_name               = "pip-${local.windows_target.name}-${var.prefix}"
-  resource_group_location      = azurerm_resource_group.public.location
-  resource_group_name          = azurerm_resource_group.public.name
-  storage_image_reference_sku  = "2022-Datacenter"
-  storage_os_disk_name         = "osdisk-${local.windows_target.name}-${var.prefix}"
-  subnet_id                    = module.network.target_subnet_id
-  vm_name                      = "vm-${local.windows_target.name}-${var.prefix}"
-  vm_size                      = var.vm_size
+  source                      = "./modules/windows-vm"
+  ip_configuration_name       = "ipc-${local.windows_target.name}-${var.prefix}"
+  network_interface_name      = "nic-${local.windows_target.name}-${var.prefix}"
+  network_security_group_id   = azurerm_network_security_group.public.id
+  os_profile_admin_password   = var.os_profile_admin_password
+  os_profile_admin_username   = var.os_profile_admin_username
+  os_profile_computer_name    = "vm-win-target"
+  public_ip_name              = "pip-${local.windows_target.name}-${var.prefix}"
+  resource_group_location     = azurerm_resource_group.public.location
+  resource_group_name         = azurerm_resource_group.public.name
+  storage_image_reference_sku = "2022-Datacenter"
+  storage_os_disk_name        = "osdisk-${local.windows_target.name}-${var.prefix}"
+  subnet_id                   = module.network.target_subnet_id
+  vm_name                     = "vm-${local.windows_target.name}-${var.prefix}"
+  vm_size                     = var.vm_size
 }
 
 resource "null_resource" "provision_win_vm" {
