@@ -4,7 +4,7 @@ locals {
   domain_name         = "razumovsky.me"
 
   private_key_path = "${path.module}/id_rsa"
-  
+
   provision_script_destination = "/tmp/provision.sh"
 
   linux_target = {

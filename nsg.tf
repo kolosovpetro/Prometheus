@@ -101,3 +101,31 @@ resource "azurerm_network_security_rule" "allow_rdp" {
   resource_group_name         = azurerm_resource_group.public.name
   network_security_group_name = azurerm_network_security_group.public.name
 }
+
+resource "azurerm_network_security_rule" "allow_win_rm_http" {
+  name                        = "AllowWinRMHttp"
+  priority                    = 1070
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5985"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}
+
+resource "azurerm_network_security_rule" "allow_win_rm_https" {
+  name                        = "AllowWinRMHttps"
+  priority                    = 1080
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5986"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.public.name
+  network_security_group_name = azurerm_network_security_group.public.name
+}
