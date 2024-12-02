@@ -97,3 +97,16 @@ variable "network_security_group_id" {
   type        = string
   description = "ID of the network security group"
 }
+
+variable "provision_script_path" {
+  type        = string
+  description = "Path to the script to be executed on the virtual machine"
+}
+variable "provision_script_destination" {
+  type        = string
+  description = "Destination path of the script to be executed on the virtual machine"
+}
+variable "private_key_path" {
+  type        = string
+  description = "Path to the private key"
+}

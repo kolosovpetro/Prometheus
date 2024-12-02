@@ -31,6 +31,11 @@
     - `$nrconf{restart} = 'a';`
     - `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 
+## Terraform provisioners
+
+- Terraform remote exec provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+- Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
+
 ## Notes
 
 - Linux default scrape port: 9100
