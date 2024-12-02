@@ -29,6 +29,7 @@
 - Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
     - `/etc/needrestart/needrestart.conf`
     - `$nrconf{restart} = 'a';`
+    - `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 
 ## Notes
 
