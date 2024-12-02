@@ -34,6 +34,9 @@ module "prometheus_server_vm" {
   public_ip_name                    = "pip-${local.prometheus_server.name}-${var.prefix}"
   subnet_id                         = module.network.prom_server_subnet_id
   network_security_group_id         = azurerm_network_security_group.public.id
+  private_key_path                  = local.private_key_path
+  provision_script_destination      = local.provision_script_destination
+  provision_script_path             = "${path.module}/scripts/Install-Linux-Prometheus-Server.sh"
 }
 
 module "linux_target_vm" {
@@ -58,6 +61,9 @@ module "linux_target_vm" {
   public_ip_name                    = "pip-${local.linux_target.name}-${var.prefix}"
   subnet_id                         = module.network.target_subnet_id
   network_security_group_id         = azurerm_network_security_group.public.id
+  private_key_path                  = local.private_key_path
+  provision_script_destination      = local.provision_script_destination
+  provision_script_path             = "${path.module}/scripts/Install-Linux-Node-Exporter.sh"
 }
 
 module "windows_target_vm" {
@@ -78,42 +84,45 @@ module "windows_target_vm" {
   vm_size                     = var.vm_size
 }
 
-module "storage" {
-  source                      = "./modules/storage"
-  storage_account_name        = "storpromdemo${var.prefix}"
-  storage_account_replication = var.storage_account_replication
-  storage_account_tier        = var.storage_account_tier
-  storage_container_name      = "contvmwin${var.prefix}"
-  storage_location            = azurerm_resource_group.public.location
-  storage_resource_group_name = azurerm_resource_group.public.name
-}
+resource "null_resource" "provision_win_vm" {
+  depends_on = [
+    module.windows_target_vm,
+    module.windows_target_configure_win_rm,
+    azurerm_network_security_group.public
+  ]
 
-module "configure_windows_servers_winrm_extension" {
-  source                                = "./modules/custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\Configure-Ansible-Host.ps1"
-  custom_script_extension_file_name     = "Configure-Ansible-Host.ps1"
-  extension_name                        = "ConfigureAnsibleHost"
-  storage_account_name                  = module.storage.storage_account_name
-  storage_container_name                = module.storage.storage_container_name
-  virtual_machine_id                    = module.windows_target_vm.id
-}
+  provisioner "file" {
+    source      = "${path.module}/scripts/Install-Windows-Exporter.ps1"
+    destination = "C:\\Temp\\Install-Windows-Exporter.ps1"
 
-module "control_node_install_ansible_extension" {
-  source                                = "./modules/linux-custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_ansible.sh"
-  custom_script_extension_file_name     = "install_ansible.sh"
-  extension_name                        = "InstallAnsible"
-  storage_account_name                  = module.storage.storage_account_name
-  storage_container_name                = module.storage.storage_container_name
-  virtual_machine_id                    = module.prometheus_server_vm.id
-}
+    connection {
+      type     = "winrm"
+      user     = var.os_profile_admin_username
+      password = var.os_profile_admin_password
+      host     = module.windows_target_vm.public_ip_address
+      port     = 5986
+      https    = true
+      timeout  = "2m"
+      use_ntlm = true
+      insecure = true
+    }
+  }
 
-module "managed_nodes_install_nginx" {
-  source                                = "./modules/linux-custom-script-extension"
-  custom_script_extension_absolute_path = "E:\\RiderProjects\\03_TERRAFORM_PROJECTS\\prometheus-learning\\scripts\\install_nginx.sh"
-  custom_script_extension_file_name     = "install_nginx.sh"
-  extension_name                        = "InstallNginx"
-  storage_account_name                  = module.storage.storage_account_name
-  storage_container_name                = module.storage.storage_container_name
-  virtual_machine_id                    = module.linux_target_vm.id
+  provisioner "remote-exec" {
+    connection {
+      type     = "winrm"
+      user     = var.os_profile_admin_username
+      password = var.os_profile_admin_password
+      host     = module.windows_target_vm.public_ip_address
+      port     = 5986
+      https    = true
+      timeout  = "2m"
+      use_ntlm = true
+      insecure = true
+    }
+
+    inline = [
+      "powershell.exe -ExecutionPolicy Bypass -File C:\\Temp\\Install-Windows-Exporter.ps1"
+    ]
+  }
 }

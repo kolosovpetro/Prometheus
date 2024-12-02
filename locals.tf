@@ -3,6 +3,10 @@ locals {
   resource_group_name = "rg-prom-${var.prefix}"
   domain_name         = "razumovsky.me"
 
+  private_key_path = "${path.module}/id_rsa"
+
+  provision_script_destination = "/tmp/provision.sh"
+
   linux_target = {
     name      = "linux-target"
     subdomain = "linux-target"

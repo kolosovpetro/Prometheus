@@ -68,6 +68,36 @@ resource "azurerm_virtual_machine" "public" {
     admin_username = var.os_profile_admin_username
     admin_password = var.os_profile_admin_password
   }
+  
+  # provisioner "file" {
+  #   source      = var.provision_script_path
+  #   destination = var.provision_script_destination
+  # 
+  #   connection {
+  #     type     = "winrm"
+  #     user     = var.os_profile_admin_username
+  #     password = var.os_profile_admin_password
+  #     host     = azurerm_public_ip.public.ip_address
+  #     port     = 5986
+  #     https    = true
+  #     timeout  = "5m"
+  #   }
+  # }
+  # 
+  # provisioner "remote-exec" {
+  #   connection {
+  #     type     = "winrm"
+  #     user     = var.os_profile_admin_username
+  #     password = var.os_profile_admin_password
+  #     host     = azurerm_public_ip.public.ip_address
+  #     port     = 5986
+  #     https    = true
+  #     timeout  = "5m"
+  #   }
+  #   inline = [
+  #     "powershell.exe -ExecutionPolicy Bypass -File ${var.provision_script_destination}"
+  #   ]
+  # }
 
   depends_on = [
     azurerm_network_interface_security_group_association.public

@@ -7,6 +7,10 @@ NODE_EXPORTER_USER="node_exporter"
 NODE_EXPORTER_BIN="/usr/local/bin/node_exporter"
 NODE_EXPORTER_SERVICE="/etc/systemd/system/node_exporter.service"
 
+echo "Update need restart conf"
+
+sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf
+
 # Update and upgrade the system
 echo "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
