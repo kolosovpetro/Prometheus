@@ -1,6 +1,6 @@
 .idea
 .ssh
-*.conf
+*.sas.conf
 .terraform
 *.tfplan
 *.tfstate

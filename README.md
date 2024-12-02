@@ -18,13 +18,17 @@
 - ssh razumovsky_r@prom-server.razumovsky.me
 - ssh razumovsky_r@linux-target.razumovsky.me
 
-## Creating scrape service
+## Configure exporters and server
 
-- sudo vim /etc/systemd/system/linux.node.exporter.service
-- sudo systemctl daemon-reload 
-- sudo systemctl start linux.node.exporter.service
-- sudo systemctl enable linux.node.exporter.service
-- systemctl status linux.node.exporter.service
+- Server: `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh && sudo chmod +x Install-Linux-Prometheus-Server.sh && sudo ./Install-Linux-Prometheus-Server.sh`
+- Linux exporter: `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh && sudo chmod +x Install-Linux-Node-Exporter.sh && sudo ./Install-Linux-Node-Exporter.sh`
+- Windows exporter: `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
+
+## Docs
+
+- Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
+    - `/etc/needrestart/needrestart.conf`
+    - `$nrconf{restart} = 'a';`
 
 ## Notes
 
