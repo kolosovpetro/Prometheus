@@ -13,8 +13,8 @@ Extensions, and configure the master node using SSH & PowerShell.
 
 ## DNS
 
-- http://prometheus-server.razumovsky.me
-- http://prometheus-server.razumovsky.me:9090
+- http://prometheus-master.razumovsky.me
+- http://prometheus-master.razumovsky.me:9090
 - http://linux-target.razumovsky.me
 - http://linux-target.razumovsky.me:9100/metrics
 - http://windows-target.razumovsky.me
@@ -22,7 +22,7 @@ Extensions, and configure the master node using SSH & PowerShell.
 
 ## SSH connection
 
-- ssh razumovsky_r@prom-server.razumovsky.me
+- ssh razumovsky_r@prometheus-master.razumovsky.me
 - ssh razumovsky_r@linux-target.razumovsky.me
 
 ## Configure exporters and server

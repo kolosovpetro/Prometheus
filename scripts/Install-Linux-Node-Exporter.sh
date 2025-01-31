@@ -7,6 +7,12 @@ NODE_EXPORTER_USER="node_exporter"
 NODE_EXPORTER_BIN="/usr/local/bin/node_exporter"
 NODE_EXPORTER_SERVICE="/etc/systemd/system/node_exporter.service"
 
+# Install nginx server
+
+echo "Installing nginx server"
+sudo apt update -y
+sudo apt install -y nginx build-essential
+
 echo "Update need restart conf"
 
 sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf
