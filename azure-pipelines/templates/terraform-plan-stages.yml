@@ -77,9 +77,9 @@ stages:
           - task: FileTransform@2
             displayName: 'Transform terraform.auto.tfvars.json'
             inputs:
-              folderPath: '$(System.DefaultWorkingDirectory)'
+              folderPath: '${{ parameters.workingDirectory }}'
               xmlTransformationRules: ''
-              jsonTargetFiles: 'terraform/terraform.auto.tfvars.json'
+              jsonTargetFiles: 'terraform.auto.tfvars.json'
 
           - powershell: |
               terraform init -backend=false
