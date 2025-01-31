@@ -26,7 +26,7 @@ module "prometheus_master_node_linux" {
   source                            = "./modules/azure-linux-vm-key-auth"
   ip_configuration_name             = "ipc-${local.prometheus_master}-${var.prefix}"
   network_interface_name            = "nic-${local.prometheus_master}-${var.prefix}"
-  os_profile_admin_public_key_path  = var.os_profile_admin_public_key_path
+  os_profile_admin_public_key_path  = "${path.root}/id_rsa.pub"
   os_profile_admin_username         = var.os_profile_admin_username
   os_profile_computer_name          = "vm-${local.prometheus_master}-${var.prefix}"
   resource_group_location           = azurerm_resource_group.public.location
@@ -68,7 +68,7 @@ module "target_node_linux" {
   source                            = "./modules/azure-linux-vm-key-auth"
   ip_configuration_name             = "ipc-${local.linux_target}-${var.prefix}"
   network_interface_name            = "nic-${local.linux_target}-${var.prefix}"
-  os_profile_admin_public_key_path  = var.os_profile_admin_public_key_path
+  os_profile_admin_public_key_path  = "${path.root}/id_rsa.pub"
   os_profile_admin_username         = var.os_profile_admin_username
   os_profile_computer_name          = "vm-${local.linux_target}-${var.prefix}"
   resource_group_location           = azurerm_resource_group.public.location

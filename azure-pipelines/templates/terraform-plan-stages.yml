@@ -94,13 +94,6 @@ stages:
             inputs:
               terraformVersion: '${{ parameters.terraformVersion }}'
 
-          - task: FileTransform@2
-            displayName: 'Transform terraform.auto.tfvars.json'
-            inputs:
-              folderPath: '${{ parameters.workingDirectory }}'
-              xmlTransformationRules: ''
-              jsonTargetFiles: 'terraform.auto.tfvars.json'
-
           - powershell: |
               terraform init -backend=false
               terraform validate

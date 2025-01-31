@@ -53,11 +53,6 @@ variable "os_profile_admin_username" {
   description = "Specifies the name of the administrator account."
 }
 
-variable "os_profile_admin_public_key_path" {
-  type        = string
-  description = "Specifies the public key of the administrator account."
-}
-
 variable "os_profile_admin_password" {
   type        = string
   description = "Specifies the password of the administrator account."
