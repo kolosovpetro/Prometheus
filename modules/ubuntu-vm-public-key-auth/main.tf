@@ -62,7 +62,7 @@ resource "azurerm_virtual_machine" "public" {
       private_key = file(var.private_key_path)
       host        = azurerm_public_ip.public.ip_address
     }
-    
+
     source      = var.provision_script_path
     destination = var.provision_script_destination
   }
@@ -74,7 +74,7 @@ resource "azurerm_virtual_machine" "public" {
       private_key = file(var.private_key_path)
       host        = azurerm_public_ip.public.ip_address
     }
-    
+
     inline = [
       "chmod +x ${var.provision_script_destination}",
       var.provision_script_destination
