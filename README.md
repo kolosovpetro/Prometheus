@@ -38,7 +38,7 @@ Extensions, and configure the master node using SSH & PowerShell.
     - `/etc/needrestart/needrestart.conf`
     - `$nrconf{restart} = 'a';`
     -
-    `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
+  `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 
 ## Terraform provisioners
 
@@ -86,4 +86,4 @@ time-series database. It supports flexible queries and provides robust alerting 
 
 ## Prometheus diagram
 
-![Prometheus Architecture Diagram](./img/Prometheus_concept_diagram.png)
+![Prometheus Architecture Diagram](./Prometheus_concept_diagram.png)

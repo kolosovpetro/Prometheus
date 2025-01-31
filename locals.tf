@@ -1,6 +1,5 @@
 locals {
-
-  resource_group_name = "rg-prom-${var.prefix}"
+  resource_group_name = "rg-prometheus-${var.prefix}"
 
   private_key_path = "${path.module}/id_rsa"
 
@@ -18,7 +17,7 @@ locals {
 
 
   prometheus_server = {
-    name      = "prom-server"
-    subdomain = "prom-server"
+    name      = "prometheus-server"
+    subdomain = "prometheus-server"
   }
 }

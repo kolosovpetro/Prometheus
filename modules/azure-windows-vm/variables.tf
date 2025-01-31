@@ -71,18 +71,3 @@ variable "network_security_group_id" {
   type        = string
   description = "ID of the network security group"
 }
-
-# variable "image_resource_group_name" {
-#   type        = string
-#   description = "Name of the resource group where the image is stored"
-# }
-
-# variable "provision_script_path" {
-#   type        = string
-#   description = "Path to the script to be executed on the VM"
-# }
-# 
-# variable "provision_script_destination" {
-#   type        = string
-#   description = "Destination path of the script to be executed on the VM"
-# }

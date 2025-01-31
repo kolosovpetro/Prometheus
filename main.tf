@@ -12,8 +12,8 @@ module "network" {
   server_subnet_name      = "server-subnet-${var.prefix}"
 }
 
-module "prometheus_server_vm" {
-  source                            = "./modules/ubuntu-vm-public-key-auth"
+module "prometheus_server_linux" {
+  source                            = "./modules/azure-linux-vm-key-auth"
   ip_configuration_name             = "ipc-${local.prometheus_server.name}-${var.prefix}"
   network_interface_name            = "nic-${local.prometheus_server.name}-${var.prefix}"
   os_profile_admin_public_key_path  = var.os_profile_admin_public_key_path
@@ -39,8 +39,8 @@ module "prometheus_server_vm" {
   provision_script_path             = "${path.module}/scripts/Install-Linux-Prometheus-Server.sh"
 }
 
-module "linux_target_vm" {
-  source                            = "./modules/ubuntu-vm-public-key-auth"
+module "target_node_linux" {
+  source                            = "./modules/azure-linux-vm-key-auth"
   ip_configuration_name             = "ipc-${local.linux_target.name}-${var.prefix}"
   network_interface_name            = "nic-${local.linux_target.name}-${var.prefix}"
   os_profile_admin_public_key_path  = var.os_profile_admin_public_key_path
@@ -66,8 +66,8 @@ module "linux_target_vm" {
   provision_script_path             = "${path.module}/scripts/Install-Linux-Node-Exporter.sh"
 }
 
-module "windows_target_vm" {
-  source                      = "./modules/windows-vm"
+module "target_node_windws" {
+  source                      = "./modules/azure-windows-vm"
   ip_configuration_name       = "ipc-${local.windows_target.name}-${var.prefix}"
   network_interface_name      = "nic-${local.windows_target.name}-${var.prefix}"
   network_security_group_id   = azurerm_network_security_group.public.id
@@ -86,7 +86,7 @@ module "windows_target_vm" {
 
 resource "null_resource" "provision_win_vm" {
   depends_on = [
-    module.windows_target_vm,
+    module.target_node_windws,
     module.windows_target_configure_win_rm,
     azurerm_network_security_group.public
   ]
@@ -99,7 +99,7 @@ resource "null_resource" "provision_win_vm" {
       type     = "winrm"
       user     = var.os_profile_admin_username
       password = var.os_profile_admin_password
-      host     = module.windows_target_vm.public_ip_address
+      host     = module.target_node_windws.public_ip_address
       port     = 5986
       https    = true
       timeout  = "2m"
@@ -113,7 +113,7 @@ resource "null_resource" "provision_win_vm" {
       type     = "winrm"
       user     = var.os_profile_admin_username
       password = var.os_profile_admin_password
-      host     = module.windows_target_vm.public_ip_address
+      host     = module.target_node_windws.public_ip_address
       port     = 5986
       https    = true
       timeout  = "2m"
