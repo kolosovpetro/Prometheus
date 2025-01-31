@@ -3,6 +3,8 @@
 Deploying Prometheus on Linux, set up Linux & Windows VMs, automate Prometheus Node Exporters via Azure Custom Script
 Extensions, and configure the master node using SSH & PowerShell.
 
+- https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
+
 ## Exporters
 
 - Master node: https://github.com/prometheus/prometheus
@@ -32,6 +34,13 @@ Extensions, and configure the master node using SSH & PowerShell.
 - Windows exporter:
   `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
 
+## Notes
+
+- Linux default scrape port: 9100
+- Windows default scrape port: 9182
+- WinRM HTTP port: 5985
+- WinRM HTTPS port: 5986
+
 ## Docs
 
 - Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
@@ -45,13 +54,7 @@ Extensions, and configure the master node using SSH & PowerShell.
 - Terraform remote exec
   provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
 - Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
-
-## Notes
-
-- Linux default scrape port: 9100
-- Windows default scrape port: 9182
-- WinRM HTTP port: 5985
-- WinRM HTTPS port: 5986
+- Cloudflare provider: https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 
 ## Prometheus and Its Components
 

@@ -3,7 +3,7 @@ resource "azurerm_storage_blob" "public" {
   storage_account_name   = var.storage_account_name
   storage_container_name = var.storage_container_name
   type                   = "Block"
-  source                 = var.custom_script_extension_absolute_path
+  source                 = var.custom_script_extension_path
 }
 
 resource "azurerm_virtual_machine_extension" "public" {

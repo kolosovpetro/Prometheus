@@ -13,7 +13,7 @@ variable "storage_container_name" {
   description = "The name of the storage container"
 }
 
-variable "custom_script_extension_absolute_path" {
+variable "custom_script_extension_path" {
   type        = string
   description = "The absolute path of the file to be downloaded from the storage account"
 }
