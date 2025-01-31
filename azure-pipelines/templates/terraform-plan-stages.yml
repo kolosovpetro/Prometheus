@@ -69,6 +69,26 @@ stages:
           - checkout: self
             fetchDepth: 0
 
+          - task: DownloadSecureFile@1
+            name: privateKey
+            displayName: "Download Private Key"
+            inputs:
+              secureFile: "id_rsa"
+
+          - task: DownloadSecureFile@1
+            name: publicKey
+            displayName: "Download Public Key"
+            inputs:
+              secureFile: "id_rsa.pub"
+
+          - powershell: |
+              $repoRoot = "${{ parameters.workingDirectory }}"
+              $privateKeyPath = "$(privateKey.secureFilePath)"
+              $publicKeyPath = "$(publicKey.secureFilePath)"
+              Copy-Item -Path $privateKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa" -Force
+              Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
+            displayName: "Copy and Set Permissions for SSH Keys"
+
           - task: TerraformInstaller@1
             displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
             inputs:
