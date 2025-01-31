@@ -1,7 +1,6 @@
 locals {
 
   resource_group_name = "rg-prom-${var.prefix}"
-  zone_id             = "d8bdf4c7860b59eddfd9fcc7bf864b47"
 
   private_key_path = "${path.module}/id_rsa"
 

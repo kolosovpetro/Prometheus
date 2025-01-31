@@ -63,11 +63,6 @@ variable "os_profile_admin_password" {
   description = "Specifies the password of the administrator account."
 }
 
-variable "cloudflare_api_token" {
-  type        = string
-  description = "Cloudflare API token"
-}
-
 variable "storage_account_replication" {
   type        = string
   description = "Specifies the replication type for this storage account."
