@@ -1,4 +1,4 @@
-Write-Host "Change directory to root"
+﻿Write-Host "Change directory to root"
 
 # Save the current location
 $originalLocation = Get-Location
@@ -12,8 +12,8 @@ $linuxTargetPublicIp = $(terraform output -raw linux_target_public_ip)
 $dnsRecords = @{}
 
 $dnsRecords["prometheus-master.razumovsky.me"] = $masterNodePublicIp
-$dnsRecords["linux-target.razumovsky.me"] = $windowsTargetPublicIp
-$dnsRecords["windows-target.razumovsky.me"] = $linuxTargetPublicIp
+$dnsRecords["linux-target.razumovsky.me"] = $linuxTargetPublicIp
+$dnsRecords["windows-target.razumovsky.me"] = $windowsTargetPublicIp
 
 Set-Location $originalLocation
 
