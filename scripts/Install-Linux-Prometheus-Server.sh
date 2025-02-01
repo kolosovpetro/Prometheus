@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Variables
 PROMETHEUS_VERSION="3.0.1"

@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Variables
 NODE_EXPORTER_VERSION="1.8.2"

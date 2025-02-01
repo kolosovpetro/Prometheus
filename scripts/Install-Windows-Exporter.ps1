@@ -1,4 +1,4 @@
-﻿# PowerShell Script to Install Prometheus Windows Exporter and Configure Firewall Rule
+# PowerShell Script to Install Prometheus Windows Exporter and Configure Firewall Rule
 
 # Variables
 $exporterVersion = "0.29.2"  # Change this to the latest version if needed
