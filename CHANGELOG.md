@@ -24,3 +24,4 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
   provisioners
 - Efficient automatic provision of Linux `node exporter` for Prometheus using `Bash` and Terraform `remote-exec`
   provisioners
+- Added `PowerShell` scripts for quick start and stop of VMs using `Az PowerShell`
