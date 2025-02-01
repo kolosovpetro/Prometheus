@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 
 - Provisioned 3 virtual machines using Terraform modules
 - Windows `WinRM` configured using Azure custom script extensions and Terraform
-- Linux target node is provisioned with NGINX using Terraform file and `remote-exec` provisioners
+- Linux target node is provisioned with NGINX using Terraform `file` and `remote-exec` provisioners
 - Windows target node is configured with node exporter and IIS using Terraform `file` and `remote-exec` provisioners
 - Cloudflare `DNS records` are updated automatically via `PowerShell` using the IP addresses from Terraform state
 - Azure custom script extension module for Linux is available too, but not used for the moment
