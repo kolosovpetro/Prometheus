@@ -7,10 +7,6 @@ PROMETHEUS_DIR="/etc/prometheus"
 PROMETHEUS_BIN="/usr/local/bin"
 PROMETHEUS_SERVICE_FILE="/etc/systemd/system/prometheus.service"
 
-echo "Installing nginx server"
-sudo apt update -y
-sudo apt install -y nginx build-essential
-
 echo "Update need restart conf"
 
 sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf

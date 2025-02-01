@@ -24,7 +24,7 @@ Extensions, and configure the master node using SSH & PowerShell.
 
 - ssh razumovsky_r@prometheus-master.razumovsky.me
 - ssh razumovsky_r@linux-target.razumovsky.me
-- ssh -o StrictHostKeyChecking=no razumovsky_r@prometheus-master.razumovsky.me "echo hello"
+- ssh -o StrictHostKeyChecking=no razumovsky_r@prometheus-master.razumovsky.me
 - ssh -o StrictHostKeyChecking=no razumovsky_r@linux-target.razumovsky.me
 
 ## Configure exporters and server
