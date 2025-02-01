@@ -1,4 +1,4 @@
-﻿Write-Host "Change directory to root"
+Write-Host "Change directory to root"
 
 # Save the current location
 $originalLocation = Get-Location
