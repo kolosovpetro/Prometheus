@@ -19,3 +19,4 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - SSH keys copied securely inside Azure pipelines
 - Fixed file encodings `(BOM characters, EOL)` to make sure consistent provision in Azure pipelines agent and locally
 - Setup `sudo add-apt-repository` in non-interactive mode
+- Efficient automatic upgrade of Linux system packages using Terraform `remote-exec` provisioners and `Bash`

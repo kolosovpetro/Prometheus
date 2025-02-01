@@ -46,17 +46,47 @@ module "prometheus_master_node_linux" {
   network_security_group_id         = azurerm_network_security_group.public.id
 }
 
-module "provision_prometheus_master_node" {
+module "upgrade_system_packages_master_node" {
   source                       = "./modules/provisioner-linux"
   os_profile_admin_username    = var.os_profile_admin_username
   private_key_path             = "${path.root}/id_rsa"
-  provision_script_destination = "/tmp/provision_master.sh"
-  provision_script_path        = "${path.root}/scripts/Install-Nginx.sh"
+  provision_script_destination = "/tmp/Upgrade-System-Packages.sh"
+  provision_script_path        = "${path.root}/scripts/Upgrade-System-Packages.sh"
   vm_public_ip_address         = module.prometheus_master_node_linux.public_ip_address
 
   depends_on = [
     module.prometheus_master_node_linux,
     azurerm_network_security_group.public
+  ]
+}
+
+module "install_nginx_master_node" {
+  source                       = "./modules/provisioner-linux"
+  os_profile_admin_username    = var.os_profile_admin_username
+  private_key_path             = "${path.root}/id_rsa"
+  provision_script_destination = "/tmp/Install-Nginx.sh"
+  provision_script_path        = "${path.root}/scripts/Install-Nginx.sh"
+  vm_public_ip_address         = module.prometheus_master_node_linux.public_ip_address
+
+  depends_on = [
+    module.prometheus_master_node_linux,
+    azurerm_network_security_group.public,
+    module.upgrade_system_packages_master_node
+  ]
+}
+
+module "install_prometheus_server_master_node" {
+  source                       = "./modules/provisioner-linux"
+  os_profile_admin_username    = var.os_profile_admin_username
+  private_key_path             = "${path.root}/id_rsa"
+  provision_script_destination = "/tmp/Install-Linux-Prometheus-Server.sh"
+  provision_script_path        = "${path.root}/scripts/Install-Linux-Prometheus-Server.sh"
+  vm_public_ip_address         = module.prometheus_master_node_linux.public_ip_address
+
+  depends_on = [
+    module.prometheus_master_node_linux,
+    azurerm_network_security_group.public,
+    module.install_nginx_master_node
   ]
 }
 
@@ -88,17 +118,47 @@ module "target_node_linux" {
   network_security_group_id         = azurerm_network_security_group.public.id
 }
 
-module "provision_target_node_linux" {
+module "upgrade_system_packages_linux_target" {
   source                       = "./modules/provisioner-linux"
   os_profile_admin_username    = var.os_profile_admin_username
   private_key_path             = "${path.root}/id_rsa"
-  provision_script_destination = "/tmp/provision-exporter.sh"
-  provision_script_path        = "${path.root}/scripts/Install-Nginx.sh"
+  provision_script_destination = "/tmp/Upgrade-System-Packages.sh"
+  provision_script_path        = "${path.root}/scripts/Upgrade-System-Packages.sh"
   vm_public_ip_address         = module.target_node_linux.public_ip_address
 
   depends_on = [
     module.target_node_linux,
     azurerm_network_security_group.public
+  ]
+}
+
+module "install_nginx_linux_target" {
+  source                       = "./modules/provisioner-linux"
+  os_profile_admin_username    = var.os_profile_admin_username
+  private_key_path             = "${path.root}/id_rsa"
+  provision_script_destination = "/tmp/Install-Nginx.sh"
+  provision_script_path        = "${path.root}/scripts/Install-Nginx.sh"
+  vm_public_ip_address         = module.target_node_linux.public_ip_address
+
+  depends_on = [
+    module.prometheus_master_node_linux,
+    azurerm_network_security_group.public,
+    module.upgrade_system_packages_linux_target
+  ]
+}
+
+module "install_prometheus_exporter_linux_target" {
+  source                       = "./modules/provisioner-linux"
+  os_profile_admin_username    = var.os_profile_admin_username
+  private_key_path             = "${path.root}/id_rsa"
+  provision_script_destination = "/tmp/Install-Linux-Node-Exporter.sh"
+  provision_script_path        = "${path.root}/scripts/Install-Linux-Node-Exporter.sh"
+  vm_public_ip_address         = module.prometheus_master_node_linux.public_ip_address
+
+  depends_on = [
+    module.prometheus_master_node_linux,
+    azurerm_network_security_group.public,
+    module.install_nginx_linux_target
   ]
 }
 
