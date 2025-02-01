@@ -2,14 +2,14 @@
 
 echo "Adding repositories"
 
-sudo add-apt-repository main
-sudo add-apt-repository universe
-sudo add-apt-repository restricted
-sudo add-apt-repository multiverse
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository main -y
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository universe -y
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository restricted -y
+sudo DEBIAN_FRONTEND=noninteractive add-apt-repository multiverse -y
 
 echo "Get update package list"
 
-sudo apt-get update
+sudo apt-get update -y
 
 echo "Install nginx and build essential"
 

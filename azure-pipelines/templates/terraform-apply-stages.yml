@@ -91,6 +91,11 @@ stages:
               steps:
                 - checkout: self
                   fetchDepth: 0
+                  
+                - powershell: |
+                    ./scripts/verify-encoding.ps1 -Autofix
+                  displayName: 'Verify encoding'
+                  workingDirectory: ${{ parameters.workingDirectory }}
 
                 - download: current
                   artifact: drop
@@ -113,7 +118,7 @@ stages:
                     $publicKeyPath = "$(publicKey.secureFilePath)"
                     Copy-Item -Path $privateKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa" -Force
                     Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
-                  displayName: "Copy and Set Permissions for SSH Keys"
+                  displayName: "Copy SSH Keys"
 
                 - task: TerraformInstaller@1
                   displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
@@ -155,6 +160,6 @@ stages:
                     inputs:
                       targetType: 'inline'
                       script: |
-                        .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
-                      workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
+                        .\cloudflare\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                      workingDirectory: ${{ parameters.workingDirectory }}
                       pwsh: true

@@ -21,6 +21,7 @@ resource "null_resource" "remote_exec_provision" {
       user        = var.os_profile_admin_username
       private_key = file(var.private_key_path)
       host        = var.vm_public_ip_address
+      timeout     = "2m"
     }
 
     inline = [

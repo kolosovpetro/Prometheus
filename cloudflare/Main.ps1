@@ -9,6 +9,10 @@ param (
 # Set error handling and preferences
 $ErrorActionPreference = "Stop"
 
+$originalLocation = Get-Location
+
+Set-Location $PSScriptRoot
+
 Write-Host "Starting Cloudflare DNS Records Update Script..." -ForegroundColor Cyan
 
 # Step 1: Get Zone ID
@@ -79,3 +83,5 @@ foreach ($entry in $newDnsEntries.GetEnumerator()) {
 
 # Final Step: Script Completion
 Write-Host "`nDNS records update process completed successfully!" -ForegroundColor Green
+
+Set-Location $originalLocation
