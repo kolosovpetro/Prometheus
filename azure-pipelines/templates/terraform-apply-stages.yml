@@ -63,7 +63,13 @@ parameters:
     
   - name: cloudflareToken
     displayName: 'Cloudflare API token'
+    default: $(library-cloudflare-token)
     type: string
+    
+  - name: shouldUpdateDnsRecords
+    default: 'true'
+    type: boolean
+    displayName: 'Flag to update DNS records or not'
 
 stages:
   - stage: ${{ parameters.stageName }}
@@ -129,12 +135,13 @@ stages:
                     ARM_CLIENT_ID: ${{ parameters.clientId }}
                     ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
                     ARM_TENANT_ID: ${{ parameters.tenantId }}
-                    
-                - task: PowerShell@2
-                  displayName: 'Update DNS records'
-                  inputs:
-                    targetType: 'inline'
-                    script: |
-                      .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
-                    workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
-                    pwsh: true
+                
+                - ${{ if eq(parameters.shouldUpdateDnsRecords, 'true') }}:  
+                  - task: PowerShell@2
+                    displayName: 'Update DNS records'
+                    inputs:
+                      targetType: 'inline'
+                      script: |
+                        .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                      workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
+                      pwsh: true
