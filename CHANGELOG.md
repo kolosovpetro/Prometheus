@@ -20,3 +20,7 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Fixed file encodings `(BOM characters, EOL)` to make sure consistent provision in Azure pipelines agent and locally
 - Setup `sudo add-apt-repository` in non-interactive mode
 - Efficient automatic upgrade of Linux system packages using Terraform `remote-exec` provisioners and `Bash`
+- Efficient automatic provision of `Prometheus server` using `Bash` and Terraform `remote-exec`
+  provisioners
+- Efficient automatic provision of Linux `node exporter` for Prometheus using `Bash` and Terraform `remote-exec`
+  provisioners
