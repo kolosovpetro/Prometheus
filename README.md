@@ -7,7 +7,7 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
 
-# What's done in this project so far
+## What's done in this project so far
 
 - Provisioned 3 virtual machines using Terraform modules
 - Windows `WinRM` configured using `Azure custom script extension` and Terraform
