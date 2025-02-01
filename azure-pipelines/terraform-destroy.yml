@@ -1,0 +1,47 @@
+trigger: none
+pr: none
+
+variables:
+  - group: Azure_Terraform_Integration
+  - name: System.Debug
+    value: 'false'
+  - name: planStageName
+    value: 'Terraform_Plan_Prometheus'
+  - name: applyStageName
+    value: 'Terraform_Destroy_Prometheus'
+
+stages:
+  - template: templates/terraform-plan-destroy-stages.yml
+    parameters:
+      stageName: ${{ variables.planStageName }}
+      VmImage: windows-latest
+      terraformVersion: latest
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      storageAccount: $(library-storage-account)
+      storageContainer: $(library-storage-container)
+      stateFile: $(library-state-file)
+      sasToken: $(library-sas-token)
+      prefix: $(library-prefix)
+      subscriptionId: $(library-subscription-id)
+      clientId: $(library-client-id)
+      clientSecret: $(library-client-secret)
+      tenantId: $(library-tenant-id)
+
+  - template: templates/terraform-apply-stages.yml
+    parameters:
+      stageName: ${{ variables.applyStageName }}
+      VmImage: windows-latest
+      terraformVersion: latest
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      storageAccount: $(library-storage-account)
+      storageContainer: $(library-storage-container)
+      stateFile: $(library-state-file)
+      sasToken: $(library-sas-token)
+      subscriptionId: $(library-subscription-id)
+      clientId: $(library-client-id)
+      clientSecret: $(library-client-secret)
+      tenantId: $(library-tenant-id)
+      shouldUpdateDnsRecords: 'false'
+      environment: 'terraform'
+      dependsOn: [ '${{ variables.planStageName }}' ]
+      condition: ${{ variables.planStageName }}

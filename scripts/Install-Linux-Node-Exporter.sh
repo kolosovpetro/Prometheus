@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Variables
 NODE_EXPORTER_VERSION="1.8.2"
@@ -6,6 +6,12 @@ NODE_EXPORTER_URL="https://github.com/prometheus/node_exporter/releases/download
 NODE_EXPORTER_USER="node_exporter"
 NODE_EXPORTER_BIN="/usr/local/bin/node_exporter"
 NODE_EXPORTER_SERVICE="/etc/systemd/system/node_exporter.service"
+
+# Install nginx server
+
+echo "Installing nginx server"
+sudo apt update -y
+sudo apt install -y nginx build-essential
 
 echo "Update need restart conf"
 

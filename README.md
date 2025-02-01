@@ -1,5 +1,62 @@
 # Prometheus
-![Prometheus Architecture Diagram](./img/Prometheus_concept_diagram.png)
+
+Deploying Prometheus on Linux, set up Linux & Windows VMs, automate Prometheus Node Exporters via Azure Custom Script
+Extensions, and configure the master node using SSH & PowerShell.
+
+- https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
+
+## Exporters
+
+- Master node: https://github.com/prometheus/prometheus
+- Linux node exporter: https://github.com/prometheus/node_exporter
+- Windows node exporter: https://github.com/prometheus-community/windows_exporter
+
+## DNS
+
+- http://prometheus-master.razumovsky.me
+- http://prometheus-master.razumovsky.me:9090
+- http://linux-target.razumovsky.me
+- http://linux-target.razumovsky.me:9100/metrics
+- http://windows-target.razumovsky.me
+- http://windows-target.razumovsky.me:9182/metrics
+
+## SSH connection
+
+- ssh razumovsky_r@prometheus-master.razumovsky.me
+- ssh razumovsky_r@linux-target.razumovsky.me
+- ssh -o StrictHostKeyChecking=no razumovsky_r@prometheus-master.razumovsky.me "echo hello"
+- ssh -o StrictHostKeyChecking=no razumovsky_r@linux-target.razumovsky.me
+
+## Configure exporters and server
+
+- Server:
+  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh && sudo chmod +x Install-Linux-Prometheus-Server.sh && sudo ./Install-Linux-Prometheus-Server.sh`
+- Linux exporter:
+  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh && sudo chmod +x Install-Linux-Node-Exporter.sh && sudo ./Install-Linux-Node-Exporter.sh`
+- Windows exporter:
+  `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
+
+## Notes
+
+- Linux default scrape port: 9100
+- Windows default scrape port: 9182
+- WinRM HTTP port: 5985
+- WinRM HTTPS port: 5986
+
+## Docs
+
+- Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
+    - `/etc/needrestart/needrestart.conf`
+    - `$nrconf{restart} = 'a';`
+    -
+  `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
+
+## Terraform provisioners
+
+- Terraform remote exec
+  provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+- Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
+- Cloudflare provider: https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 
 ## Prometheus and Its Components
 
@@ -32,51 +89,6 @@ time-series database. It supports flexible queries and provides robust alerting 
    A powerful query language used to retrieve and manipulate time-series data. It supports various functions for
    aggregating and analyzing metrics.
 
-## Exporters
+## Prometheus diagram
 
-- https://github.com/prometheus/prometheus
-- https://github.com/prometheus/node_exporter
-- https://github.com/prometheus-community/windows_exporter
-
-## DNS
-
-- http://prom-server.razumovsky.me
-- http://prom-server.razumovsky.me:9090
-- http://linux-target.razumovsky.me
-- http://linux-target.razumovsky.me:9100/metrics
-- http://windows-target.razumovsky.me
-- http://windows-target.razumovsky.me:9182/metrics
-
-## SSH connection
-
-- ssh razumovsky_r@prom-server.razumovsky.me
-- ssh razumovsky_r@linux-target.razumovsky.me
-
-## Configure exporters and server
-
-- Server:
-  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh && sudo chmod +x Install-Linux-Prometheus-Server.sh && sudo ./Install-Linux-Prometheus-Server.sh`
-- Linux exporter:
-  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh && sudo chmod +x Install-Linux-Node-Exporter.sh && sudo ./Install-Linux-Node-Exporter.sh`
-- Windows exporter:
-  `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
-
-## Docs
-
-- Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
-    - `/etc/needrestart/needrestart.conf`
-    - `$nrconf{restart} = 'a';`
-    - `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
-
-## Terraform provisioners
-
-- Terraform remote exec
-  provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
-- Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
-
-## Notes
-
-- Linux default scrape port: 9100
-- Windows default scrape port: 9182
-- WinRM HTTP port: 5985
-- WinRM HTTPS port: 5986
+![Prometheus Architecture Diagram](./Prometheus_concept_diagram.png)
