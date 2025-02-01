@@ -60,6 +60,10 @@ parameters:
   - name: tenantId
     displayName: 'Azure Tenant Id'
     type: string
+    
+  - name: cloudflareToken
+    displayName: 'Cloudflare API token'
+    type: string
 
 stages:
   - stage: ${{ parameters.stageName }}
@@ -125,3 +129,8 @@ stages:
                     ARM_CLIENT_ID: ${{ parameters.clientId }}
                     ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
                     ARM_TENANT_ID: ${{ parameters.tenantId }}
+                    
+                - powershell: |
+                    .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                  displayName: 'Update DNS records'
+                  workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
