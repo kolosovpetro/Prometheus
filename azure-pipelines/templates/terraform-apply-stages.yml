@@ -130,7 +130,11 @@ stages:
                     ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
                     ARM_TENANT_ID: ${{ parameters.tenantId }}
                     
-                - powershell: |
-                    .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                - task: PowerShell@2
                   displayName: 'Update DNS records'
-                  workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      .\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                    workingDirectory: ${{ parameters.workingDirectory }}/cloudflare
+                    pwsh: true
