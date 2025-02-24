@@ -34,12 +34,13 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 ## DNS
 
-- http://prometheus-master.razumovsky.me
-- http://prometheus-master.razumovsky.me:9090
-- http://linux-target.razumovsky.me
-- http://linux-target.razumovsky.me:9100/metrics
-- http://windows-target.razumovsky.me
-- http://windows-target.razumovsky.me:9182/metrics
+- [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
+- [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
+- [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
+- [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
+- [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
+- [Windows Node HTTP IIS](http://windows-target.razumovsky.me)
+- [Prometheus Windows Node Exporter Metrics](http://windows-target.razumovsky.me:9182/metrics)
 
 ## SSH connection
 
