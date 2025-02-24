@@ -48,13 +48,15 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 - ssh -o StrictHostKeyChecking=no razumovsky_r@prometheus-master.razumovsky.me
 - ssh -o StrictHostKeyChecking=no razumovsky_r@linux-target.razumovsky.me
 
-## Configure exporters and server
+## Configure Prometheus and Grafana
 
-- Server:
-  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh && sudo chmod +x Install-Linux-Prometheus-Server.sh && sudo ./Install-Linux-Prometheus-Server.sh`
-- Linux exporter:
-  `wget https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh && sudo chmod +x Install-Linux-Node-Exporter.sh && sudo ./Install-Linux-Node-Exporter.sh`
-- Windows exporter:
+- Prometheus Server:
+  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
+- Grafana:
+   `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/AZ400-327/scripts/Install-Grafana.sh | sudo bash`
+- Prometheus Linux Node exporter:
+  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
+- Prometheus Windows Node exporter:
   `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
 
 ## Notes
