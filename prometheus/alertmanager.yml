@@ -1,0 +1,18 @@
+﻿global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 30m
+  receiver: slack-notifications
+
+receivers:
+  - name: slack-notifications
+    slack_configs:
+      - channel: "#alerts"
+        send_resolved: true
+        username: "Prometheus"
+        icon_emoji: ":alert:"
+        api_url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
