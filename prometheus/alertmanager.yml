@@ -15,4 +15,4 @@ receivers:
         send_resolved: true
         username: "Prometheus"
         icon_emoji: ":alert:"
-        api_url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+        api_url: "https://hooks.slack.com/services/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"
