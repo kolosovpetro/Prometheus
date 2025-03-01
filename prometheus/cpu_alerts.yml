@@ -1,4 +1,4 @@
-﻿groups:
+groups:
   - name: cpu_alerts
     rules:
       - alert: HighCPUUsage
