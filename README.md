@@ -24,6 +24,7 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 - [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
 - [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
+- [AlertManager Web UI](http://prometheus-master.razumovsky.me:9093)
 - [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
 - [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
 - [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
