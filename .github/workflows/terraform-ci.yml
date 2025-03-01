@@ -36,7 +36,6 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.TF_ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ""
       ARM_TENANT_ID: ""
-      WORKING_DIR: "./"
 
     steps:
       - name: Fetch Sources
@@ -48,19 +47,20 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
+          
+      - name: SSH key
+        run: |
+          ssh-keygen -t rsa -b 4096 -C "your-email@example.com" -f ~/.ssh/id_rsa -N ""
+        
 
       - name: Terraform Version
         run: terraform -v
-        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform Init
         run: terraform init -backend=false
-        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: ${{ env.WORKING_DIR }}
 
       - name: Terraform Format
         run: terraform fmt -check
-        working-directory: ${{ env.WORKING_DIR }}
