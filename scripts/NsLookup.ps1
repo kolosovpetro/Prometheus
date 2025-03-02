@@ -1,4 +1,4 @@
-﻿ipconfig /flushdns
+ipconfig /flushdns
 
 $urls = @(
     "prometheus-master.razumovsky.me",
