@@ -6,21 +6,9 @@ PowerShell and Bash.
 Configure the Prometheus server using Bash and Terraform `remote-exec` provisioners.
 
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
+- https://api.slack.com/apps
 
-## Configure Alert Manager
-
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
-
-## Exporters
-
-- Master node: https://github.com/prometheus/prometheus
-- Alert manager: https://github.com/prometheus/alertmanager
-- Linux node exporter: https://github.com/prometheus/node_exporter
-- Windows node exporter: https://github.com/prometheus-community/windows_exporter
-
-## DNS
+## URLs
 
 - [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
 - [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
@@ -31,23 +19,37 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 - [Windows Node HTTP IIS](http://windows-target.razumovsky.me)
 - [Prometheus Windows Node Exporter Metrics](http://windows-target.razumovsky.me:9182/metrics)
 
-## SSH connection
+## Configure Alert Manager
 
-- ssh razumovsky_r@prometheus-master.razumovsky.me
-- ssh razumovsky_r@linux-target.razumovsky.me
-- ssh -o StrictHostKeyChecking=no razumovsky_r@prometheus-master.razumovsky.me
-- ssh -o StrictHostKeyChecking=no razumovsky_r@linux-target.razumovsky.me
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
+
+## Stress Tests Windows
+
+- `choco install heavyload -y`
+
+## Stress Tests Linux
+
+- `sudo apt-get -y install stress-ng`
+- `stress-ng --vm-bytes $(awk '/MemFree/{printf "%d\n", $2 * 1;}' < /proc/meminfo)k --vm-keep -m 10`
+- `stress-ng --matrix 0`
+- `sudo apt-get -y install fio`
+- `fio --name=test --rw=write --bs=1M --iodepth=32 --filename=/tmp/test --size=20G`
 
 ## Configure Prometheus and Grafana
 
-- Prometheus Server:
-  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
-- Grafana:
-   `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-327/scripts/Install-Grafana.sh | sudo bash`
-- Prometheus Linux Node exporter:
-  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
-- Prometheus Windows Node exporter:
-  `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/Prometheus/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Grafana.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
+-
+
+```powershell
+    $scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Windows-Exporter.ps1";
+    $localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";
+    Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;
+    PowerShell -ExecutionPolicy Bypass -File $localScriptPath
+```
 
 ## Notes
 
@@ -56,12 +58,19 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 - WinRM HTTP port: 5985
 - WinRM HTTPS port: 5986
 
+## Exporters
+
+- Master node: https://github.com/prometheus/prometheus
+- Alert manager: https://github.com/prometheus/alertmanager
+- Linux node exporter: https://github.com/prometheus/node_exporter
+- Windows node exporter: https://github.com/prometheus-community/windows_exporter
+
 ## Docs
 
 - Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
-    - `/etc/needrestart/needrestart.conf`
-    - `$nrconf{restart} = 'a';`
-    -
+  - `/etc/needrestart/needrestart.conf`
+  - `$nrconf{restart} = 'a';`
+  -
   `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 
 ## Terraform provisioners

@@ -1,8 +1,17 @@
 groups:
-  - name: cpu_alerts
+  - name: CpuRules
     rules:
-      - alert: HighCPUUsage
+      - alert: HighCPUUsageLinux
         expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 80
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage detected on instance {{ $labels.instance }}"
+          description: "CPU usage is above 80% for more than 2 minutes on {{ $labels.instance }}."
+
+      - alert: HighCPUUsageWindows
+        expr: (100 - (avg by (instance) (rate(windows_cpu_time_total{mode="idle"}[5m])) * 100)) > 80
         for: 2m
         labels:
           severity: critical
