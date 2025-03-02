@@ -19,5 +19,5 @@ scrape_configs:
 rule_files:
   - "cpu_rules.yml"
   - "instance_shutdown_rules.yml"
-  - "memory_rule.yml"
-  - "storage_rule.yml"
+  - "memory_rules.yml"
+  - "storage_rules.yml"

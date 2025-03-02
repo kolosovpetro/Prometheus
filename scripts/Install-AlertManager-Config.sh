@@ -4,8 +4,8 @@
 ALERT_MANAGER_CONFIG_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/alertmanager.yml"
 PROMETHEUS_CONFIG_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/prometheus.yml"
 CPU_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/cpu_rules.yml"
-RAM_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/memory_rule.yml"
-STORAGE_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/storage_rule.yml"
+RAM_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/memory_rules.yml"
+STORAGE_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/storage_rules.yml"
 SHUTDOWN_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/instance_shutdown_rules.yml"
 
 # PATHS
@@ -13,7 +13,7 @@ PROMETHEUS_CONFIG_PATH="/etc/prometheus/prometheus.yml"
 ALERT_MANAGER_CONFIG_PATH="/etc/alertmanager/alertmanager.yml"
 CPU_RULES_PATH="/etc/prometheus/cpu_rules.yml"
 RAM_RULES_PATH="/etc/prometheus/memory_rules.yml"
-STORAGE_RULES_PATH="/etc/prometheus/storage_rule.yml"
+STORAGE_RULES_PATH="/etc/prometheus/storage_rules.yml"
 SHUTDOWN_RULES_PATH="/etc/prometheus/instance_shutdown_rules.yml"
 
 sudo mkdir -p /etc/alertmanager
