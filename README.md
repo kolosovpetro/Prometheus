@@ -13,6 +13,18 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
 
+## Stress Tests Windows
+
+- `choco install heavyload -y`
+
+## Stress Tests Linux
+
+- `sudo apt-get -y install stress-ng`
+- `stress-ng --vm-bytes $(awk '/MemFree/{printf "%d\n", $2 * 1;}' < /proc/meminfo)k --vm-keep -m 10`
+- `stress-ng --matrix 0`
+- `sudo apt-get -y install fio`
+- `fio --name=test --rw=write --bs=1M --iodepth=32 --filename=/tmp/test --size=20G`
+
 ## Configure Prometheus and Grafana
 
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
