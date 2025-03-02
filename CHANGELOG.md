@@ -31,3 +31,4 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Configure Alert Manager
 - Configure rules: CPU, RAM, Disk, Shutdown
 - Minor fixes in scripts
+- Configure rules: CPU, RAM, Disk, Shutdown (Windows)
