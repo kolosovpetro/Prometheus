@@ -1,4 +1,4 @@
-﻿curl -X POST -H 'Content-Type: application/json' --data '{
+curl -X POST -H 'Content-Type: application/json' --data '{
   "alerts": [{
     "status": "firing",
     "labels": {

@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # URLS
 CONFIG_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/prometheus/alertmanager.yml"

@@ -1,4 +1,4 @@
-﻿# Define service file path
+# Define service file path
 SERVICE_FILE="/etc/systemd/system/alertmanager.service"
 
 echo "Creating Alertmanager systemd service file..."
