@@ -9,9 +9,9 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 ## Configure Alert Manager
 
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-330/scripts/Install-AlertManager.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-330/scripts/Install-AlertManager-Config.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-330/scripts/Install-AlertManager-Service.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
 
 ## Exporters
 
