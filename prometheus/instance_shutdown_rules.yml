@@ -1,8 +1,14 @@
 groups:
-  - name: alert.rules
+  - name: ShutDownRules
     rules:
-      - alert: InstanceDown
+      - alert: InstanceDownLinux
         expr: up{instance="linux-target.razumovsky.me:9100"} == 0
+        for: 1m
+        labels:
+          severity: "critical"
+
+      - alert: InstanceDownWindows
+        expr: up{instance="windows-target.razumovsky.me:9182"} == 0
         for: 1m
         labels:
           severity: "critical"
