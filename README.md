@@ -72,6 +72,8 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
   - `$nrconf{restart} = 'a';`
   -
   `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
+- https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/
+- https://grafana.com/grafana/dashboards/1860-node-exporter-full/
 
 ## Terraform provisioners
 
