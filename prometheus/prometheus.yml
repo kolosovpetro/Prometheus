@@ -17,4 +17,7 @@ scrape_configs:
         - 'windows-target.razumovsky.me:9182'
 
 rule_files:
-  - "cpu_alerts.yml"
+  - "cpu_rules.yml"
+  - "instance_shutdown_rules.yml"
+  - "memory_rule.yml"
+  - "storage_rule.yml"

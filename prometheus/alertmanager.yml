@@ -1,5 +1,6 @@
 global:
   resolve_timeout: 5m
+  slack_api_url: 'https://hooks.slack.com/services/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'
 
 route:
   group_by: ['alertname']
@@ -12,7 +13,4 @@ receivers:
   - name: slack-notifications
     slack_configs:
       - channel: "#alerts"
-        send_resolved: true
-        username: "Prometheus"
-        icon_emoji: ":alert:"
-        api_url: "https://hooks.slack.com/services/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"
+        send_resolved: false
