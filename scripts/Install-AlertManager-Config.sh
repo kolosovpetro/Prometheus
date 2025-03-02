@@ -11,10 +11,10 @@ SHUTDOWN_RULES_URL="https://raw.githubusercontent.com/kolosovpetro/Prometheus/re
 # PATHS
 PROMETHEUS_CONFIG_PATH="/etc/prometheus/prometheus.yml"
 ALERT_MANAGER_CONFIG_PATH="/etc/alertmanager/alertmanager.yml"
-CPU_RULES_PATH="/etc/alertmanager/cpu_rules.yml"
-RAM_RULES_PATH="/etc/alertmanager/memory_rules.yml"
-STORAGE_RULES_PATH="/etc/alertmanager/storage_rule.yml"
-SHUTDOWN_RULES_PATH="/etc/alertmanager/instance_shutdown_rules.yml"
+CPU_RULES_PATH="/etc/prometheus/cpu_rules.yml"
+RAM_RULES_PATH="/etc/prometheus/memory_rules.yml"
+STORAGE_RULES_PATH="/etc/prometheus/storage_rule.yml"
+SHUTDOWN_RULES_PATH="/etc/prometheus/instance_shutdown_rules.yml"
 
 sudo mkdir -p /etc/alertmanager
 sudo mkdir -p /etc/prometheus
