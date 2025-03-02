@@ -8,10 +8,21 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
 - https://api.slack.com/apps
 
+## URLs
+
+- [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
+- [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
+- [AlertManager Web UI](http://prometheus-master.razumovsky.me:9093)
+- [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
+- [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
+- [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
+- [Windows Node HTTP IIS](http://windows-target.razumovsky.me)
+- [Prometheus Windows Node Exporter Metrics](http://windows-target.razumovsky.me:9182/metrics)
+
 ## Configure Alert Manager
 
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-330/scripts/Install-AlertManager-Config.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
 
 ## Stress Tests Windows
@@ -39,17 +50,6 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
     Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;
     PowerShell -ExecutionPolicy Bypass -File $localScriptPath
 ```
-
-## URLs
-
-- [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
-- [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
-- [AlertManager Web UI](http://prometheus-master.razumovsky.me:9093)
-- [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
-- [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
-- [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
-- [Windows Node HTTP IIS](http://windows-target.razumovsky.me)
-- [Prometheus Windows Node Exporter Metrics](http://windows-target.razumovsky.me:9182/metrics)
 
 ## Notes
 
