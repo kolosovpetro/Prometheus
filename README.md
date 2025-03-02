@@ -7,28 +7,16 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
 
-## What's done in this project so far
+## Configure Alert Manager
 
-- Provisioned 3 virtual machines using Terraform modules
-- Windows `WinRM` configured using `Azure custom script extension` and Terraform
-- Linux target node is provisioned with `NGINX` using Terraform `file` and `remote-exec` provisioners
-- Windows target node is configured with `node exporter` and IIS using Terraform `file` and `remote-exec` provisioners
-- Cloudflare `DNS records` are updated automatically via `PowerShell` using the IP addresses from Terraform state
-- `Azure custom script extension for Linux` is available too, but not used for the moment
-- Whole infrastructure provision is `fully automated` using `Terraform` and `Azure pipelines`
-- SSH keys copied securely inside `Azure pipelines`
-- Fixed file encodings `(BOM characters, EOL)` to make sure consistent provision in Azure pipelines agent and locally
-- Setup `sudo add-apt-repository` in non-interactive mode
-- Efficient automatic `upgrade` of `Linux system packages` using Terraform `remote-exec` provisioners and `Bash`
-- Efficient automatic provision of `Prometheus server` using `Bash` and Terraform `remote-exec`
-  provisioners
-- Efficient automatic provision of Linux `node exporter` for Prometheus using `Bash` and Terraform `remote-exec`
-  provisioners
-- Added `PowerShell` scripts for quick start and stop of VMs using `Az PowerShell`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
+- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
 
 ## Exporters
 
 - Master node: https://github.com/prometheus/prometheus
+- Alert manager: https://github.com/prometheus/alertmanager
 - Linux node exporter: https://github.com/prometheus/node_exporter
 - Windows node exporter: https://github.com/prometheus-community/windows_exporter
 
@@ -36,6 +24,7 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 - [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
 - [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
+- [AlertManager Web UI](http://prometheus-master.razumovsky.me:9093)
 - [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
 - [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
 - [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
@@ -52,13 +41,13 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 ## Configure Prometheus and Grafana
 
 - Prometheus Server:
-  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
+  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
 - Grafana:
-   `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/AZ400-327/scripts/Install-Grafana.sh | sudo bash`
+   `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/AZ400-327/scripts/Install-Grafana.sh | sudo bash`
 - Prometheus Linux Node exporter:
-  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
+  `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
 - Prometheus Windows Node exporter:
-  `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
+  `$scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/Prometheus/master/scripts/Install-Windows-Exporter.ps1";$localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;PowerShell -ExecutionPolicy Bypass -File $localScriptPath`
 
 ## Notes
 
@@ -89,27 +78,27 @@ time-series database. It supports flexible queries and provides robust alerting 
 
 ### Key Components of Prometheus:
 
-1. **Prometheus Server**  
+1. **Prometheus Server**
    The core component responsible for collecting, storing, and querying time-series data. It pulls metrics from defined
    endpoints by scraping them at specified intervals.
 
-2. **Service Discovery**  
+2. **Service Discovery**
    Automatically detects targets to scrape metrics from, reducing the need for manual configuration. This allows
    Prometheus to dynamically adapt to changes in infrastructure.
 
-3. **Alert Manager**  
+3. **Alert Manager**
    Manages alerts generated by the Prometheus server, deduplicating and routing them to appropriate notification
    channels like email, Slack, or PagerDuty.
 
-4. **Scheduler**  
+4. **Scheduler**
    Handles the periodic task of scraping metrics from targets and storing them in the time-series database. It ensures
    consistent data collection.
 
-5. **Web UI**  
+5. **Web UI**
    Provides a basic interface for exploring metrics and running queries directly in Prometheus. Users can visualize data
    and validate queries using PromQL.
 
-6. **PromQL (Prometheus Query Language)**  
+6. **PromQL (Prometheus Query Language)**
    A powerful query language used to retrieve and manipulate time-series data. It supports various functions for
    aggregating and analyzing metrics.
 
