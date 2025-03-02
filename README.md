@@ -6,6 +6,7 @@ PowerShell and Bash.
 Configure the Prometheus server using Bash and Terraform `remote-exec` provisioners.
 
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
+- https://api.slack.com/apps
 
 ## Configure Alert Manager
 
