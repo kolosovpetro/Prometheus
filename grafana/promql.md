@@ -1,4 +1,4 @@
-﻿# Windows PromQL queries
+# Windows PromQL queries
 
 ## CPU usage time series windows
 
