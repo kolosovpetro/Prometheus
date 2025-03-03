@@ -21,6 +21,7 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 
 ## Configure Alert Manager
 
+- `.\cloudflare\Main.ps1 -ApiToken $env:CLOUDFLARE_API_KEY -ZoneName "razumovsky.me"`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
@@ -72,13 +73,15 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
   - `$nrconf{restart} = 'a';`
   -
   `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
+- https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/
+- https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+- https://grafana.com/grafana/dashboards/20763-windows-exporter-dashboard-2024/
 
 ## Terraform provisioners
 
-- Terraform remote exec
-  provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
-- Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
-- Cloudflare provider: https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
+- https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+- https://developer.hashicorp.com/terraform/language/resources/provisioners/file
+- https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 
 ## Prometheus and Its Components
 
