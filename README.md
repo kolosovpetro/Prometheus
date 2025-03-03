@@ -74,13 +74,13 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
   `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 - https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/
 - https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+- https://grafana.com/grafana/dashboards/20763-windows-exporter-dashboard-2024/
 
 ## Terraform provisioners
 
-- Terraform remote exec
-  provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
-- Terraform file provisioner: https://developer.hashicorp.com/terraform/language/resources/provisioners/file
-- Cloudflare provider: https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
+- https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+- https://developer.hashicorp.com/terraform/language/resources/provisioners/file
+- https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 
 ## Prometheus and Its Components
 
