@@ -35,3 +35,5 @@ and this project adheres to [Semantic Versioning v2.0.0](https://semver.org/spec
 - Stress test for linux: `stress-ng`
 - Stress test for windows: `heavyload`
 - Update readme
+- Add grafana dashboard for linux node exporter
+- Add grafana dashboard for windows node exporter
