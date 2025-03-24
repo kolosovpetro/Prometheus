@@ -74,7 +74,7 @@ module "target_node_linux" {
 ##########################################################################
 
 module "target_node_windows" {
-  source                      = "git::git@github.com:kolosovpetro/AzureWindowsVMTerraform.git//modules/windows-vm-custom-image?ref=master"
+  source                      = "github.com/kolosovpetro/AzureWindowsVMTerraform.git//modules/windows-vm-custom-image?ref=master"
   ip_configuration_name       = "ipc-win-target-${var.prefix}"
   network_interface_name      = "nic-win-target-${var.prefix}"
   network_security_group_id   = azurerm_network_security_group.public.id

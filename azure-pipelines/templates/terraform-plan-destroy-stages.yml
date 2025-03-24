@@ -68,12 +68,12 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 0
-            
+
           - powershell: |
               ./scripts/verify-encoding.ps1 -Autofix
             displayName: 'Verify encoding'
             workingDirectory: ${{ parameters.workingDirectory }}
-            
+
           - task: DownloadSecureFile@1
             name: privateKey
             displayName: "Download Private Key"
@@ -111,7 +111,7 @@ stages:
                 -backend-config="storage_account_name=$env:TF_STATE_BLOB_ACCOUNT_NAME" `
                 -backend-config="container_name=$env:TF_STATE_BLOB_CONTAINER_NAME" `
                 -backend-config="key=$env:TF_STATE_BLOB_FILE" `
-                -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN"
+                -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN" -reconfigure -upgrade
             displayName: 'Terraform Init'
             workingDirectory: ${{ parameters.workingDirectory }}
             env:
