@@ -94,6 +94,10 @@ stages:
               Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
             displayName: "Copy SSH Keys"
 
+          - powershell: |
+              $(library-rdp-password) | Set-Content ./password.txt
+            displayName: 'Set RDP Password'
+
           - task: TerraformInstaller@1
             displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
             inputs:

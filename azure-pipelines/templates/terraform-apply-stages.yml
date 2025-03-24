@@ -113,6 +113,10 @@ stages:
                     secureFile: "id_rsa.pub"
 
                 - powershell: |
+                    $(library-rdp-password) | Set-Content ./password.txt
+                  displayName: 'Set RDP Password'
+
+                - powershell: |
                     $repoRoot = "${{ parameters.workingDirectory }}"
                     $privateKeyPath = "$(privateKey.secureFilePath)"
                     $publicKeyPath = "$(publicKey.secureFilePath)"
