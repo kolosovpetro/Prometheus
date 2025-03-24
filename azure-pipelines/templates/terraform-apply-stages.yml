@@ -113,7 +113,7 @@ stages:
                     secureFile: "id_rsa.pub"
 
                 - powershell: |
-                    $(library-rdp-password) | Set-Content -Path ./password.txt
+                    "$(library-rdp-password)" | Set-Content -Path ./password.txt
                   displayName: 'Set RDP Password'
 
                 - powershell: |

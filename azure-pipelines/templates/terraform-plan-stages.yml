@@ -95,7 +95,7 @@ stages:
             displayName: "Copy SSH Keys"
 
           - powershell: |
-              $(library-rdp-password) | Set-Content -Path ./password.txt
+              "$(library-rdp-password)" | Set-Content -Path ./password.txt
             displayName: 'Set RDP Password'
 
           - task: TerraformInstaller@1
