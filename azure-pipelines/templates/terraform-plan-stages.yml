@@ -90,8 +90,8 @@ stages:
               $repoRoot = "${{ parameters.workingDirectory }}"
               $privateKeyPath = "$(privateKey.secureFilePath)"
               $publicKeyPath = "$(publicKey.secureFilePath)"
-              Copy-Item -Path $privateKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa" -Force
-              Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
+              Copy-Item -Path $privateKeyPath -Destination "$env:USERPROFILE\.ssh\id_rsa" -Force
+              Copy-Item -Path $publicKeyPath -Destination "$env:USERPROFILE\.ssh\id_rsa.pub" -Force
             displayName: "Copy SSH Keys"
 
           - powershell: |
