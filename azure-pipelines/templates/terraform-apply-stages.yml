@@ -164,14 +164,14 @@ stages:
                     inputs:
                       targetType: 'inline'
                       script: |
-                        Install-Module -Name CloudflareDnsTools -Scope CurrentUser
+                        Install-Module -Name CloudflareDnsTools -Scope CurrentUser -Force
                         .\Update-Cloudflare-Records.ps1
                       workingDirectory: ${{ parameters.workingDirectory }}
                       pwsh: true
 
                 - ${{ if eq(parameters.shouldConfigureAlertManager, 'true') }}:
                   - task: PowerShell@2
-                    displayName: 'Update DNS records'
+                    displayName: 'Configure Alert Manager'
                     inputs:
                       targetType: 'inline'
                       script: |
