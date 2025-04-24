@@ -1,10 +1,5 @@
 # Prometheus
 
-Deploying Prometheus server on Linux using Bash and Terraform `remote-exec`provisioners.
-Set up Linux & Windows VMs as scrape targets, automate Prometheus Node Exporters via Azure Custom Script Extensions,
-PowerShell and Bash.
-Configure the Prometheus server using Bash and Terraform `remote-exec` provisioners.
-
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
 - https://api.slack.com/apps
 
@@ -22,6 +17,7 @@ Configure the Prometheus server using Bash and Terraform `remote-exec` provision
 ## Configure Alert Manager
 
 - `Install-Module -Name CloudflareDnsTools -Scope AllUsers`
+- `.\Update-Cloudflare-Records.ps1`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
 - `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`

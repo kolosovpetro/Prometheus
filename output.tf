@@ -22,6 +22,10 @@ output "master_nginx_http_url" {
   value = "http://${module.prometheus_master_node_linux.public_ip}:80"
 }
 
+output "master_grafana_url" {
+  value = "http://${module.prometheus_master_node_linux.public_ip}:3000/login"
+}
+
 ##########################################################################
 # PROMETHEUS TARGET NODE (LINUX)
 ##########################################################################
@@ -35,7 +39,7 @@ output "linux_target_ssh_command" {
 }
 
 output "linux_target_node_exporter_url" {
-  value = "http://${module.target_node_linux.public_ip}:9100"
+  value = "http://${module.target_node_linux.public_ip}:9100/metrics"
 }
 
 output "linux_target_http_url" {
@@ -51,6 +55,6 @@ output "windows_target_public_ip" {
 }
 
 output "windows_node_exporter_url" {
-  value = "http://${module.target_node_windows.public_ip}:9182"
+  value = "http://${module.target_node_windows.public_ip}:9182/metrics"
 }
 
