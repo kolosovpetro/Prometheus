@@ -168,6 +168,8 @@ stages:
                         .\Update-Cloudflare-Records.ps1
                       workingDirectory: ${{ parameters.workingDirectory }}
                       pwsh: true
+                    env:
+                      CLOUDFLARE_API_KEY: ${{ parameters.cloudflareToken }}
 
                 - ${{ if eq(parameters.shouldConfigureAlertManager, 'true') }}:
                   - task: PowerShell@2
