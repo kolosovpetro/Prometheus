@@ -74,7 +74,7 @@ parameters:
   - name: shouldConfigureAlertManager
     default: 'true'
     type: boolean
-    displayName: 'Flag to update DNS records or not'
+    displayName: 'Flag to configure AlertManager'
 
 stages:
   - stage: ${{ parameters.stageName }}
