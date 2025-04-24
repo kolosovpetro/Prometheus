@@ -79,7 +79,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                Install-Module VerifyEncoding -Repository PSGallery -Scope CurrentUser
+                Install-Module VerifyEncoding -Repository PSGallery -Scope CurrentUser -Force
                 Test-Encoding -Autofix
               workingDirectory: ${{ parameters.workingDirectory }}
               pwsh: true
