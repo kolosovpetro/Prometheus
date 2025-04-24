@@ -120,8 +120,14 @@ stages:
                     $repoRoot = "${{ parameters.workingDirectory }}"
                     $privateKeyPath = "$(privateKey.secureFilePath)"
                     $publicKeyPath = "$(publicKey.secureFilePath)"
-                    Copy-Item -Path $privateKeyPath -Destination "$env:USERPROFILE\.ssh\id_rsa" -Force
-                    Copy-Item -Path $publicKeyPath -Destination "$env:USERPROFILE\.ssh\id_rsa.pub" -Force
+                    $sshDirectory = "$env:USERPROFILE\.ssh"
+
+                    if (-not (Test-Path -Path $sshDirectory)) {
+                      New-Item -ItemType Directory -Path $sshDirectory
+                    }
+
+                    Copy-Item -Path $privateKeyPath -Destination "$sshDirectory\.ssh\id_rsa" -Force
+                    Copy-Item -Path $publicKeyPath -Destination "$sshDirectory\.ssh\id_rsa.pub" -Force
                   displayName: "Copy SSH Keys"
 
                 - task: TerraformInstaller@1
