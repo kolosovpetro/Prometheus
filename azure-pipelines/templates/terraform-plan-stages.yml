@@ -74,11 +74,15 @@ stages:
           - checkout: self
             fetchDepth: 0
 
-          - powershell: |
-              Install-Module -Name VerifyEncoding -Scope CurrentUser -Force
-              Test-Encoding -Autofix
-            displayName: 'Verify encoding'
-            workingDirectory: ${{ parameters.workingDirectory }}
+          - task: PowerShell@2
+            displayName: 'Fix encoding'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Install-Module VerifyEncoding -Repository PSGallery -Scope CurrentUser
+                Test-Encoding -Autofix
+              workingDirectory: ${{ parameters.workingDirectory }}
+              pwsh: true
 
           - task: DownloadSecureFile@1
             name: privateKey
