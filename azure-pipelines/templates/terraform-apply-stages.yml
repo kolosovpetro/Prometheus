@@ -97,16 +97,6 @@ stages:
                 - checkout: self
                   fetchDepth: 0
 
-                - task: PowerShell@2
-                  displayName: 'Fix encoding'
-                  inputs:
-                    targetType: 'inline'
-                    script: |
-                      Install-Module VerifyEncoding -Repository PSGallery -Scope CurrentUser -Force
-                      Test-Encoding -Autofix
-                    workingDirectory: ${{ parameters.workingDirectory }}
-                    pwsh: true
-
                 - download: current
                   artifact: drop
 

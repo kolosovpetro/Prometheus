@@ -74,16 +74,6 @@ stages:
           - checkout: self
             fetchDepth: 0
 
-          - task: PowerShell@2
-            displayName: 'Fix encoding'
-            inputs:
-              targetType: 'inline'
-              script: |
-                Install-Module VerifyEncoding -Repository PSGallery -Scope CurrentUser -Force
-                Test-Encoding -Autofix
-              workingDirectory: ${{ parameters.workingDirectory }}
-              pwsh: true
-
           - task: DownloadSecureFile@1
             name: privateKey
             displayName: "Download Private Key"
@@ -134,7 +124,7 @@ stages:
               TF_STATE_BLOB_FILE: ${{ parameters.stateFile }}
               TF_STATE_BLOB_SAS_TOKEN: ${{ parameters.sasToken }}
 
-          - ${{ if eq(parameters.destroy, 'false') }}:
+          - ${{ if eq(parameters.destroy, false) }}:
             - powershell: |
                 terraform plan -var "prefix=${{ parameters.prefix }}" -out main.tfplan
               displayName: 'Terraform Plan'
@@ -145,7 +135,7 @@ stages:
                 ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
                 ARM_TENANT_ID: ${{ parameters.tenantId }}
 
-          - ${{ if eq(parameters.destroy, 'true') }}:
+          - ${{ if eq(parameters.destroy, true) }}:
             - powershell: |
                 terraform plan -destroy -var "prefix=${{ parameters.prefix }}" -out main.tfplan
               displayName: 'Terraform Plan Destroy'
