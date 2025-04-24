@@ -128,6 +128,9 @@ stages:
 
                     Copy-Item -Path $privateKeyPath -Destination "$sshDirectory\id_rsa" -Force
                     Copy-Item -Path $publicKeyPath -Destination "$sshDirectory\id_rsa.pub" -Force
+
+                    Copy-Item -Path $privateKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa" -Force
+                    Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
                   displayName: "Copy SSH Keys"
 
                 - task: TerraformInstaller@1
