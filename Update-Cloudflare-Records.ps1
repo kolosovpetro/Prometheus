@@ -1,4 +1,4 @@
-﻿# Requires Install-Module -Name CloudflareDnsTools -Scope AllUsers
+# Requires Install-Module -Name CloudflareDnsTools -Scope AllUsers
 
 $zoneName = "razumovsky.me"
 

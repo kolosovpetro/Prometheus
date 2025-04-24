@@ -10,6 +10,10 @@ output "master_ssh_command" {
   value = "ssh razumovsky_r@${module.prometheus_master_node_linux.public_ip}"
 }
 
+output "master_configure_command" {
+  value = "ssh -o StrictHostKeyChecking=no razumovsky_r@${module.prometheus_master_node_linux.public_ip} \"wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash\""
+}
+
 output "master_prometheus_ui_url" {
   value = "http://${module.prometheus_master_node_linux.public_ip}:9090"
 }

@@ -3,7 +3,7 @@
 ##########################################################################
 
 resource "azurerm_resource_group" "public" {
-  location = var.resource_group_location
+  location = "northeurope"
   name     = "rg-prometheus-${var.prefix}"
 }
 
