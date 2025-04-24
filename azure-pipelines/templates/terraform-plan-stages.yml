@@ -75,7 +75,7 @@ stages:
             fetchDepth: 0
 
           - powershell: |
-              Install-Module -Name VerifyEncoding -Scope AllUsers
+              Install-Module -Name VerifyEncoding -Scope CurrentUser -Force
               Test-Encoding -Autofix
             displayName: 'Verify encoding'
             workingDirectory: ${{ parameters.workingDirectory }}
