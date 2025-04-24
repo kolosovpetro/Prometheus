@@ -71,6 +71,11 @@ parameters:
     type: boolean
     displayName: 'Flag to update DNS records or not'
 
+  - name: shouldConfigureAlertManager
+    default: 'true'
+    type: boolean
+    displayName: 'Flag to update DNS records or not'
+
 stages:
   - stage: ${{ parameters.stageName }}
     displayName: ${{ parameters.stageName }}
@@ -93,7 +98,8 @@ stages:
                   fetchDepth: 0
 
                 - powershell: |
-                    ./scripts/verify-encoding.ps1 -Autofix
+                    Install-Module -Name VerifyEncoding -Scope AllUsers
+                    Test-Encoding -Autofix
                   displayName: 'Verify encoding'
                   workingDirectory: ${{ parameters.workingDirectory }}
 
@@ -164,6 +170,17 @@ stages:
                     inputs:
                       targetType: 'inline'
                       script: |
-                        .\cloudflare\Main.ps1 -ApiToken ${{ parameters.cloudflareToken }} -ZoneName "razumovsky.me"
+                        Install-Module -Name CloudflareDnsTools -Scope AllUsers
+                        .\Update-Cloudflare-Records.ps1
+                      workingDirectory: ${{ parameters.workingDirectory }}
+                      pwsh: true
+
+                - ${{ if eq(parameters.shouldConfigureAlertManager, 'true') }}:
+                  - task: PowerShell@2
+                    displayName: 'Update DNS records'
+                    inputs:
+                      targetType: 'inline'
+                      script: |
+                        .\Configure-AlertManager.ps1
                       workingDirectory: ${{ parameters.workingDirectory }}
                       pwsh: true

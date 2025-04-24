@@ -11,7 +11,7 @@ variables:
     value: 'Terraform_Destroy_Prometheus'
 
 stages:
-  - template: templates/terraform-plan-destroy-stages.yml
+  - template: templates/terraform-plan-stages.yml
     parameters:
       stageName: ${{ variables.planStageName }}
       VmImage: windows-latest
@@ -26,6 +26,7 @@ stages:
       clientId: $(library-client-id)
       clientSecret: $(library-client-secret)
       tenantId: $(library-tenant-id)
+      destroy: true
 
   - template: templates/terraform-apply-stages.yml
     parameters:
@@ -42,6 +43,7 @@ stages:
       clientSecret: $(library-client-secret)
       tenantId: $(library-tenant-id)
       shouldUpdateDnsRecords: 'false'
+      shouldConfigureAlertManager: 'false'
       environment: 'terraform'
       dependsOn: [ '${{ variables.planStageName }}' ]
       condition: ${{ variables.planStageName }}
