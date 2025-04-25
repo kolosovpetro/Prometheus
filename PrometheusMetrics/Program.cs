@@ -17,11 +17,11 @@ builder.Services.AddOpenTelemetry()
     .WithTracing(tracing => tracing
         .AddAspNetCoreInstrumentation() // Trace incoming HTTP requests
         .AddHttpClientInstrumentation() // Trace outgoing HTTP requests
-        .AddConsoleExporter())          // Export traces to the console
+        .AddConsoleExporter()) // Export traces to the console
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
-        .AddPrometheusExporter()        // Add exporter: dotnet add package --prerelease OpenTelemetry.Exporter.Prometheus.AspNetCore
+        .AddPrometheusExporter() // Add exporter: dotnet add package --prerelease OpenTelemetry.Exporter.Prometheus.AspNetCore
         .AddConsoleExporter());
 
 builder.Logging.AddOpenTelemetry(options =>
@@ -39,11 +39,9 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 

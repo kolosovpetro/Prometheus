@@ -72,6 +72,7 @@
 - https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/
 - https://grafana.com/grafana/dashboards/1860-node-exporter-full/
 - https://grafana.com/grafana/dashboards/20763-windows-exporter-dashboard-2024/
+- https://grafana.com/grafana/dashboards/19924-asp-net-core/
 
 ## Terraform provisioners
 
