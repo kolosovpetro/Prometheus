@@ -3,7 +3,7 @@
 ##########################################################################
 
 resource "azurerm_resource_group" "public" {
-  location = var.resource_group_location
+  location = "northeurope"
   name     = "rg-prometheus-${var.prefix}"
 }
 
@@ -32,7 +32,7 @@ resource "azurerm_subnet" "internal" {
 module "prometheus_master_node_linux" {
   source                           = "github.com/kolosovpetro/AzureLinuxVMTerraform.git//modules/ubuntu-vm-key-auth-custom-image?ref=master"
   custom_image_resource_group_name = "rg-packer-images-linux"
-  custom_image_sku                 = "ubuntu2204-v3"
+  custom_image_sku                 = "azure-ubuntu-monitoring-master"
   ip_configuration_name            = "ipc-master-${var.prefix}"
   network_interface_name           = "nic-master-${var.prefix}"
   os_profile_admin_public_key      = file("${path.root}/id_rsa.pub")
@@ -54,7 +54,7 @@ module "prometheus_master_node_linux" {
 module "target_node_linux" {
   source                           = "github.com/kolosovpetro/AzureLinuxVMTerraform.git//modules/ubuntu-vm-key-auth-custom-image?ref=master"
   custom_image_resource_group_name = "rg-packer-images-linux"
-  custom_image_sku                 = "ubuntu2204-v1"
+  custom_image_sku                 = "azure-ubuntu-monitoring-target"
   ip_configuration_name            = "ipc-linux-target-${var.prefix}"
   network_interface_name           = "nic-linux-target-${var.prefix}"
   os_profile_admin_public_key      = file("${path.root}/id_rsa.pub")
@@ -74,7 +74,7 @@ module "target_node_linux" {
 ##########################################################################
 
 module "target_node_windows" {
-  source                      = "git::git@github.com:kolosovpetro/AzureWindowsVMTerraform.git//modules/windows-vm-custom-image?ref=master"
+  source                      = "github.com/kolosovpetro/AzureWindowsVMTerraform.git//modules/windows-vm-custom-image?ref=master"
   ip_configuration_name       = "ipc-win-target-${var.prefix}"
   network_interface_name      = "nic-win-target-${var.prefix}"
   network_security_group_id   = azurerm_network_security_group.public.id

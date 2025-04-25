@@ -54,6 +54,11 @@ parameters:
     displayName: 'Azure Tenant Id'
     type: string
 
+  - name: destroy
+    type: boolean
+    default: 'false'
+    displayName: 'Should destroy flag'
+
 stages:
   - stage: ${{ parameters.stageName }}
     displayName: ${{ parameters.stageName }}
@@ -68,11 +73,6 @@ stages:
         steps:
           - checkout: self
             fetchDepth: 0
-            
-          - powershell: |
-              ./scripts/verify-encoding.ps1 -Autofix
-            displayName: 'Verify encoding'
-            workingDirectory: ${{ parameters.workingDirectory }}
 
           - task: DownloadSecureFile@1
             name: privateKey
@@ -90,9 +90,22 @@ stages:
               $repoRoot = "${{ parameters.workingDirectory }}"
               $privateKeyPath = "$(privateKey.secureFilePath)"
               $publicKeyPath = "$(publicKey.secureFilePath)"
+              $sshDirectory = "$env:USERPROFILE\.ssh"
+
+              if (-not (Test-Path -Path $sshDirectory)) {
+                New-Item -ItemType Directory -Path $sshDirectory
+              }
+
+              Copy-Item -Path $privateKeyPath -Destination "$sshDirectory\id_rsa" -Force
+              Copy-Item -Path $publicKeyPath -Destination "$sshDirectory\id_rsa.pub" -Force
+
               Copy-Item -Path $privateKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa" -Force
               Copy-Item -Path $publicKeyPath -Destination "${{ parameters.workingDirectory }}\id_rsa.pub" -Force
             displayName: "Copy SSH Keys"
+
+          - powershell: |
+              "$(library-rdp-password)" | Set-Content -Path ./password.txt
+            displayName: 'Set RDP Password'
 
           - task: TerraformInstaller@1
             displayName: 'Install Terraform ${{ parameters.terraformVersion }}'
@@ -111,7 +124,7 @@ stages:
                 -backend-config="storage_account_name=$env:TF_STATE_BLOB_ACCOUNT_NAME" `
                 -backend-config="container_name=$env:TF_STATE_BLOB_CONTAINER_NAME" `
                 -backend-config="key=$env:TF_STATE_BLOB_FILE" `
-                -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN"
+                -backend-config="sas_token=$env:TF_STATE_BLOB_SAS_TOKEN" -reconfigure -upgrade
             displayName: 'Terraform Init'
             workingDirectory: ${{ parameters.workingDirectory }}
             env:
@@ -120,15 +133,27 @@ stages:
               TF_STATE_BLOB_FILE: ${{ parameters.stateFile }}
               TF_STATE_BLOB_SAS_TOKEN: ${{ parameters.sasToken }}
 
-          - powershell: |
-              terraform plan -var "prefix=${{ parameters.prefix }}" -out main.tfplan
-            displayName: 'Terraform Plan'
-            workingDirectory: ${{ parameters.workingDirectory }}
-            env:
-              ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
-              ARM_CLIENT_ID: ${{ parameters.clientId }}
-              ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
-              ARM_TENANT_ID: ${{ parameters.tenantId }}
+          - ${{ if eq(parameters.destroy, false) }}:
+            - powershell: |
+                terraform plan -var "prefix=${{ parameters.prefix }}" -out main.tfplan
+              displayName: 'Terraform Plan'
+              workingDirectory: ${{ parameters.workingDirectory }}
+              env:
+                ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
+                ARM_CLIENT_ID: ${{ parameters.clientId }}
+                ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
+                ARM_TENANT_ID: ${{ parameters.tenantId }}
+
+          - ${{ if eq(parameters.destroy, true) }}:
+            - powershell: |
+                terraform plan -destroy -var "prefix=${{ parameters.prefix }}" -out main.tfplan
+              displayName: 'Terraform Plan Destroy'
+              workingDirectory: ${{ parameters.workingDirectory }}
+              env:
+                ARM_SUBSCRIPTION_ID: ${{ parameters.subscriptionId }}
+                ARM_CLIENT_ID: ${{ parameters.clientId }}
+                ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
+                ARM_TENANT_ID: ${{ parameters.tenantId }}
 
           - powershell: |
               cp main.tfplan $(Build.ArtifactStagingDirectory)

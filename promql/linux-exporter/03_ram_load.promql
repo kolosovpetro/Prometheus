@@ -1,0 +1,1 @@
+((node_memory_MemTotal_bytes{instance="$node", job="$job"} - node_memory_MemFree_bytes{instance="$node", job="$job"}) / node_memory_MemTotal_bytes{instance="$node", job="$job"}) * 100
