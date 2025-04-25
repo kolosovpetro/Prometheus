@@ -17,6 +17,8 @@ scrape_configs:
         - 'windows-target.razumovsky.me:9182'
 
   - job_name: 'app_service_exporter'
+    metrics_path: '/metrics'
+    scheme: 'https'
     static_configs:
       - targets:
           - 'webapp-demo-d01.azurewebsites.net'

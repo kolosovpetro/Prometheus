@@ -110,5 +110,10 @@ resource "azurerm_windows_web_app" "app" {
   resource_group_name = azurerm_resource_group.public.name
   service_plan_id     = azurerm_service_plan.asp.id
 
+  app_settings = {
+    WEBSITE_ENABLE_SYNC_UPDATE_SITE = "true"
+    WEBSITE_RUN_FROM_PACKAGE        = "1"
+  }
+
   site_config {}
 }
