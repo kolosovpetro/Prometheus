@@ -119,7 +119,7 @@ stages:
                     azureSubscription: 'AzureConnection'
                     appType: 'webApp'
                     WebAppName: '$(WebAppName)'
-                    packageForLinux: '$(Pipeline.Workspace)/$(buildConfiguration)/drop/*.zip'
+                    packageForLinux: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
                     JSONFiles: |
                       **/appsettings.json
                       **/config.json
