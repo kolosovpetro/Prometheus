@@ -1,19 +1,9 @@
-trigger:
-  batch: true
-  branches:
-    include:
-      - develop
-      - master
-      - ubuntu-deploy-yaml
-  paths:
-    include:
-      - '*'
+trigger: none
 
 pr:
   branches:
     include:
-      - develop
-      - master
+      - '*'
 
 variables:
   - name: solution
