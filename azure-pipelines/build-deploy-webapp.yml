@@ -122,4 +122,3 @@ stages:
                     packageForLinux: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
                     JSONFiles: |
                       **/appsettings.json
-                      **/config.json
