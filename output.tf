@@ -67,6 +67,10 @@ output "windows_node_exporter_url" {
 ##########################################################################
 
 output "app_service_url" {
-  value = "${azurerm_windows_web_app.app.name}.azurewebsites.net"
+  value = "https://${azurerm_windows_web_app.app.name}.azurewebsites.net/swagger"
+}
+
+output "app_service_metrics_url" {
+  value = "https://${azurerm_windows_web_app.app.name}.azurewebsites.net/metrics"
 }
 

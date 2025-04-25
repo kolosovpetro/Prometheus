@@ -16,6 +16,11 @@ scrape_configs:
         - 'linux-target.razumovsky.me:9100'
         - 'windows-target.razumovsky.me:9182'
 
+  - job_name: 'app_service_exporter'
+    static_configs:
+      - targets:
+          - 'webapp-demo-d01.azurewebsites.net'
+
 rule_files:
   - "cpu_rules.yml"
   - "instance_shutdown_rules.yml"
