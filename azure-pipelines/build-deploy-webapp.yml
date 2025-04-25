@@ -77,8 +77,7 @@ stages:
                 -f net6.0 -r linux-x64
                 --self-contained
                 -p:Version=$(GitVersion.SemVer)
-                -o $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
-                --no-build"
+                -o $(Build.ArtifactStagingDirectory)/$(buildConfiguration)"
 
           - task: CopyFiles@2
             displayName: 'Copy Scripts'
