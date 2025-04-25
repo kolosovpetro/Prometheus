@@ -9,3 +9,5 @@
 *.pub
 id_rsa
 *.txt
+*/bin/
+*/obj/
