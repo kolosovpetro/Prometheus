@@ -90,3 +90,25 @@ module "target_node_windows" {
   subnet_id                   = azurerm_subnet.internal.id
   vm_name                     = "vm-win-target-${var.prefix}"
 }
+
+##########################################################################
+# PROMETHEUS TARGET NODE (WINDOWS)
+##########################################################################
+
+resource "azurerm_service_plan" "asp" {
+  name                = "asp-demo-${var.prefix}"
+  location            = azurerm_resource_group.public.location
+  resource_group_name = azurerm_resource_group.public.name
+
+  os_type  = "Windows"
+  sku_name = "B1"
+}
+
+resource "azurerm_windows_web_app" "app" {
+  name                = "webapp-demo-${var.prefix}"
+  location            = azurerm_resource_group.public.location
+  resource_group_name = azurerm_resource_group.public.name
+  service_plan_id     = azurerm_service_plan.asp.id
+
+  site_config {}
+}

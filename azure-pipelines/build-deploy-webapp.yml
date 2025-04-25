@@ -94,32 +94,32 @@ stages:
               ArtifactName: '$(artifactFolder)'
               publishLocation: 'Container'
 
-#  - stage: 'Deploy'
-#    displayName: 'Deploy'
-#    dependsOn: Build_Test
-#    condition: succeeded('Build_Test')
-#    jobs:
-#      - deployment: 'Deploy'
-#        displayName: 'Deploy'
-#        pool:
-#          vmImage: ubuntu-latest
-#        environment:
-#          name: ApprovalRequired
-#        strategy:
-#          runOnce:
-#            deploy:
-#              steps:
-#                - download: current
-#                  artifact: drop
-#
-#                - task: AzureRmWebAppDeployment@4
-#                  displayName: 'Deploy to Azure Web App'
-#                  inputs:
-#                    ConnectionType: 'AzureRM'
-#                    azureSubscription: 'Azure_Connection'
-#                    appType: 'webApp'
-#                    WebAppName: '$(WebAppName)'
-#                    packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'
-#                    JSONFiles: |
-#                      **/appsettings.json
-#                      **/config.json
+  - stage: 'Deploy'
+    displayName: 'Deploy'
+    dependsOn: Build_Test
+    condition: succeeded('Build_Test')
+    jobs:
+      - deployment: 'Deploy'
+        displayName: 'Deploy'
+        pool:
+          vmImage: ubuntu-latest
+        environment:
+          name: ApprovalRequired
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: 'Deploy to Azure Web App'
+                  inputs:
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: 'AzureConnection'
+                    appType: 'webApp'
+                    WebAppName: '$(WebAppName)'
+                    packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'
+                    JSONFiles: |
+                      **/appsettings.json
+                      **/config.json
