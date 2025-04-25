@@ -92,3 +92,28 @@ stages:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
               ArtifactName: '$(artifactFolder)'
               publishLocation: 'Container'
+
+  - stage: 'Deploy_SSH'
+    displayName: 'Deploy_SSH'
+    dependsOn: Build_Test
+    condition: succeeded('Build_Test')
+    jobs:
+      - deployment: 'Deploy_SSH'
+        displayName: 'Deploy_SSH'
+#        variables:
+#          - group: Nginx_YAML_Release_Settings
+#          - group: Nginx_Movies_Appsettings
+#          - group: devtest.team_wildcard_certificate
+        environment:
+          name: ApprovalRequired
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                  fetchDepth: 0
+
+                - download: current
+                  artifact: drop
+
+                - bash: ls -lsa
