@@ -118,7 +118,7 @@ stages:
                     ConnectionType: 'AzureRM'
                     azureSubscription: 'AzureConnection'
                     appType: 'webApp'
-                    WebAppName: '$(WebAppName)'
+                    WebAppName: 'webapp-demo-d01'
                     packageForLinux: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
                     JSONFiles: |
                       **/appsettings.json
