@@ -48,10 +48,10 @@ stages:
               BuildVersion: $(GitVersion.SemVer)
 
           - task: UseDotNet@2
-            displayName: 'Install .NET 6.x SDK'
+            displayName: 'Install .NET 8.x SDK'
             inputs:
               packageType: sdk
-              version: 6.x
+              version: 8.x
 
           - task: DotNetCoreCLI@2
             displayName: 'Dotnet Restore'
