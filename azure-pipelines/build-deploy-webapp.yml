@@ -18,6 +18,8 @@ variables:
     value: 'drop'
   - name: artifactName
     value: 'PrometheusMetrics.zip'
+  - name: 'System.Debug'
+    value: 'true'
 
 stages:
   - stage: 'Build_Test'
@@ -116,4 +118,8 @@ stages:
                 - download: current
                   artifact: drop
 
-                - bash: ls -lsa
+                - task: DownloadSecureFile@1
+                  name: sshKey
+                  displayName: 'Download SSH key'
+                  inputs:
+                    secureFile: 'id_rsa'
