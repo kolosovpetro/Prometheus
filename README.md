@@ -3,6 +3,16 @@
 - https://dev.azure.com/PetroKolosovProjects/PrometheusLearning
 - https://api.slack.com/apps
 
+## Deployment
+
+- terraform plan
+- terraform apply
+- Deploy dotnet app
+- Configure-Cloudflare-Records.ps1
+- Configure-Prometheus.ps1
+- Configure-AlertManager.ps1
+- Configure-Slack.ps1
+
 ## URLs
 
 ## Master node
