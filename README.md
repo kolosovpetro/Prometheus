@@ -5,22 +5,32 @@
 
 ## URLs
 
+## Master node
+
 - [Prometheus Server HTTP Nginx](http://prometheus-master.razumovsky.me)
 - [Prometheus Server Web UI](http://prometheus-master.razumovsky.me:9090)
 - [AlertManager Web UI](http://prometheus-master.razumovsky.me:9093)
 - [Grafana Web UI](http://prometheus-master.razumovsky.me:3000/login)
+
+## Linux target
+
 - [Linux Node HTTP Nginx](http://linux-target.razumovsky.me)
 - [Prometheus Linux Node Exporter Metrics](http://linux-target.razumovsky.me:9100/metrics)
+
+## Windows target
+
 - [Windows Node HTTP IIS](http://windows-target.razumovsky.me)
 - [Prometheus Windows Node Exporter Metrics](http://windows-target.razumovsky.me:9182/metrics)
 
+## App Service
+
+- [App Service Swagger](https://webapp-demo-d01.azurewebsites.net/swagger/index.html)
+- [App Service Metrics](https://webapp-demo-d01.azurewebsites.net/metrics)
+
 ## Configure Alert Manager
 
-- `Install-Module -Name CloudflareDnsTools -Scope AllUsers`
-- `.\Update-Cloudflare-Records.ps1`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Config.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-AlertManager-Service.sh | sudo bash`
+- https://github.com/kolosovpetro/PackerAzureLinuxImages/blob/master/packer-images/scripts/Install-AlertManager.sh
+- https://github.com/kolosovpetro/PackerAzureLinuxImages/blob/master/packer-images/scripts/Install-AlertManager-Service.sh
 
 ## Stress Tests Windows
 
@@ -36,17 +46,10 @@
 
 ## Configure Prometheus and Grafana
 
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Prometheus-Server.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Grafana.sh | sudo bash`
-- `wget -qO- https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Linux-Node-Exporter.sh | sudo bash`
--
-
-```powershell
-    $scriptUrl = "https://raw.githubusercontent.com/kolosovpetro/Prometheus/refs/heads/master/scripts/Install-Windows-Exporter.ps1";
-    $localScriptPath = "$env:TEMP\Install-Windows-Exporter.ps1";
-    Invoke-WebRequest -Uri $scriptUrl -OutFile $localScriptPath;
-    PowerShell -ExecutionPolicy Bypass -File $localScriptPath
-```
+- https://github.com/kolosovpetro/PackerAzureLinuxImages/blob/master/packer-images/scripts/Install-Linux-Prometheus-Server.sh
+- https://github.com/kolosovpetro/PackerAzureLinuxImages/blob/master/packer-images/scripts/Install-Grafana.sh
+- https://github.com/kolosovpetro/PackerAzureLinuxImages/blob/master/packer-images/scripts/Install-Linux-Prometheus-Node-Exporter.sh
+- https://github.com/kolosovpetro/PackerAzureWindowsImages/blob/master/packer-images/scripts/Install-Windows-Node-Exporter.ps1
 
 ## Notes
 
@@ -55,20 +58,15 @@
 - WinRM HTTP port: 5985
 - WinRM HTTPS port: 5986
 
-## Exporters
+## Exporters GitHub
 
 - Master node: https://github.com/prometheus/prometheus
 - Alert manager: https://github.com/prometheus/alertmanager
 - Linux node exporter: https://github.com/prometheus/node_exporter
 - Windows node exporter: https://github.com/prometheus-community/windows_exporter
 
-## Docs
+## Grafana dashboards
 
-- Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
-  - `/etc/needrestart/needrestart.conf`
-  - `$nrconf{restart} = 'a';`
-  -
-  `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 - https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/
 - https://grafana.com/grafana/dashboards/1860-node-exporter-full/
 - https://grafana.com/grafana/dashboards/20763-windows-exporter-dashboard-2024/
@@ -79,6 +77,14 @@
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/file
 - https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
+
+## Docs
+
+- Daemon using outdated libraries fix: https://stackoverflow.com/q/73397110
+  - `/etc/needrestart/needrestart.conf`
+  - `$nrconf{restart} = 'a';`
+  -
+  `sudo curl -o /etc/needrestart/needrestart.conf https://raw.githubusercontent.com/kolosovpetro/prometheus-learning/refs/heads/master/needrestart.conf`
 
 ## Prometheus and Its Components
 
