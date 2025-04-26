@@ -24,7 +24,7 @@ scrape_configs:
           - 'webapp-demo-d01.azurewebsites.net'
 
 rule_files:
-  - "cpu_rules.yml"
-  - "instance_shutdown_rules.yml"
-  - "memory_rules.yml"
-  - "storage_rules.yml"
+  - 'cpu_rules.yml'
+  - 'instance_shutdown_rules.yml'
+  - 'memory_rules.yml'
+  - 'storage_rules.yml'
