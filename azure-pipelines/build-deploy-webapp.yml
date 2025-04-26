@@ -1,9 +1,6 @@
 trigger: none
 
-pr:
-  branches:
-    include:
-      - '*'
+pr: none
 
 variables:
   - name: solution
