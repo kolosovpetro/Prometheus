@@ -16,7 +16,7 @@ variables:
   - name: artifactName
     value: 'PrometheusMetrics.zip'
   - name: 'System.Debug'
-    value: 'true'
+    value: 'false'
 
 stages:
   - stage: 'Build'
