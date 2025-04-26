@@ -31,4 +31,11 @@ public class PrometheusController : ControllerBase
 
         return await Task.FromResult<IActionResult>(StatusCode(500));
     }
+
+    [HttpGet]
+    [Route("throw-error")]
+    public Task<IActionResult> ThrowError()
+    {
+        throw new InvalidOperationException();
+    }
 }
