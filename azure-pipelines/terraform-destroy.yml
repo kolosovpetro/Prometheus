@@ -43,6 +43,7 @@ stages:
       clientSecret: $(library-client-secret)
       tenantId: $(library-tenant-id)
       shouldUpdateDnsRecords: false
+      shouldConfigurePrometheus: false
       shouldConfigureAlertManager: false
       environment: 'terraform'
       dependsOn: [ '${{ variables.planStageName }}' ]

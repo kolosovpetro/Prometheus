@@ -1,0 +1,121 @@
+trigger: none
+
+pr: none
+
+variables:
+  - name: solution
+    value: 'PrometheusMetrics.sln'
+  - name: buildPlatform
+    value: 'Any CPU'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: projectPath
+    value: 'PrometheusMetrics/PrometheusMetrics.csproj'
+  - name: artifactFolder
+    value: 'drop'
+  - name: artifactName
+    value: 'PrometheusMetrics.zip'
+  - name: 'System.Debug'
+    value: 'false'
+
+stages:
+  - stage: 'Build'
+    jobs:
+      - job: 'Build'
+        displayName: 'Build'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - checkout: self
+            fetchDepth: 0
+
+          - task: gitversion/setup@0
+            displayName: 'GitVersion Setup'
+            inputs:
+              versionSpec: '5.9.x'
+
+          - task: gitversion/execute@0
+            displayName: 'GitVersion Execute'
+
+          - bash: echo $Action$BuildVersion
+            displayName: 'Set Build Version'
+            env:
+              Action: '##vso[build.updatebuildnumber]'
+              BuildVersion: $(GitVersion.SemVer)
+
+          - task: UseDotNet@2
+            displayName: 'Install .NET 8.x SDK'
+            inputs:
+              packageType: sdk
+              version: 8.x
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Dotnet Restore'
+            inputs:
+              command: 'restore'
+              projects: '$(solution)'
+              restoreArguments: '--locked-mode'
+              arguments: '--verbosity minimal'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Dotnet build $(buildConfiguration)'
+            inputs:
+              command: 'build'
+              projects: '$(solution)'
+              arguments: '-p:Version=$(GitVersion.SemVer) --configuration $(buildConfiguration) --no-restore'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Dotnet Publish'
+            inputs:
+              command: 'publish'
+              publishWebProjects: false
+              projects: '$(projectPath)'
+              arguments: "
+                -c $(buildConfiguration)
+                -p:Version=$(GitVersion.SemVer)
+                -o $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
+                --no-build"
+
+          - task: CopyFiles@2
+            displayName: 'Copy Scripts'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)/scripts'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifacts'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: '$(artifactFolder)'
+              publishLocation: 'Container'
+
+  - stage: 'Deploy'
+    displayName: 'Deploy'
+    dependsOn: Build
+    condition: succeeded('Build')
+    jobs:
+      - deployment: 'Deploy'
+        displayName: 'Deploy'
+        pool:
+          vmImage: ubuntu-latest
+        environment:
+          name: ApprovalRequired
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+
+                - task: AzureRmWebAppDeployment@4
+                  displayName: 'Deploy to Azure Web App'
+                  inputs:
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: 'AzureConnection'
+                    appType: 'webApp'
+                    WebAppName: 'webapp-demo-d01'
+                    packageForLinux: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+                    JSONFiles: |
+                      **/appsettings.json

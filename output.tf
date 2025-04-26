@@ -62,3 +62,15 @@ output "windows_node_exporter_url" {
   value = "http://${module.target_node_windows.public_ip}:9182/metrics"
 }
 
+##########################################################################
+# PROMETHEUS TARGET APP SERVICE (WINDOWS)
+##########################################################################
+
+output "app_service_url" {
+  value = "https://${azurerm_windows_web_app.app.name}.azurewebsites.net/swagger"
+}
+
+output "app_service_metrics_url" {
+  value = "https://${azurerm_windows_web_app.app.name}.azurewebsites.net/metrics"
+}
+

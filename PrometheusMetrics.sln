@@ -1,0 +1,27 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrometheusMetrics", "PrometheusMetrics\PrometheusMetrics.csproj", "{06280CE4-2A0A-44E8-A4B6-5A1FDDF2B715}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CA590EF7-FF71-4020-942D-4AF786A745B9}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		GitVersion.yml = GitVersion.yml
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06280CE4-2A0A-44E8-A4B6-5A1FDDF2B715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06280CE4-2A0A-44E8-A4B6-5A1FDDF2B715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06280CE4-2A0A-44E8-A4B6-5A1FDDF2B715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06280CE4-2A0A-44E8-A4B6-5A1FDDF2B715}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
