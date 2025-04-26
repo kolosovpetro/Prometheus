@@ -71,6 +71,11 @@ parameters:
     type: boolean
     displayName: 'Flag to update DNS records or not'
 
+  - name: shouldConfigurePrometheus
+    default: 'true'
+    type: boolean
+    displayName: 'Flag to configure Prometheus'
+
   - name: shouldConfigureAlertManager
     default: 'true'
     type: boolean
@@ -167,7 +172,7 @@ stages:
                     ARM_CLIENT_SECRET: ${{ parameters.clientSecret }}
                     ARM_TENANT_ID: ${{ parameters.tenantId }}
 
-                - ${{ if eq(parameters.shouldUpdateDnsRecords, 'true') }}:
+                - ${{ if eq(parameters.shouldUpdateDnsRecords, true) }}:
                   - task: PowerShell@2
                     displayName: 'Update DNS records'
                     inputs:
@@ -180,12 +185,22 @@ stages:
                     env:
                       CLOUDFLARE_API_KEY: ${{ parameters.cloudflareToken }}
 
-                - ${{ if eq(parameters.shouldConfigureAlertManager, 'true') }}:
+                - ${{ if eq(parameters.shouldConfigurePrometheus, true) }}:
                   - task: PowerShell@2
-                    displayName: 'Configure Alert Manager'
+                    displayName: 'Configure Prometheus'
                     inputs:
                       targetType: 'inline'
                       script: |
-                        .\Configure-AlertManager.ps1
+                        .\Configure-Prometheus.ps1
                       workingDirectory: ${{ parameters.workingDirectory }}
                       pwsh: true
+
+                - ${{ if eq(parameters.shouldConfigureAlertManager, true) }}:
+                    - task: PowerShell@2
+                      displayName: 'Configure Alert Manager'
+                      inputs:
+                        targetType: 'inline'
+                        script: |
+                          .\Configure-AlertManager.ps1
+                        workingDirectory: ${{ parameters.workingDirectory }}
+                        pwsh: true
